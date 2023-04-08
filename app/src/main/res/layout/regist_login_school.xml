@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_main_profile"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login_school"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_main_profile"
+        android:fontFamily="georgia"
+        android:text="@string/login_to_school"
+        android:textAllCaps="false"
+        android:layout_marginBottom="10dp"
+        android:textColor="#FFEB3B" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_school_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background_main_profile"
+        android:fontFamily="georgia"
+        android:text="@string/register_new_school"
+        android:textAllCaps="false"
+        android:textColor="@color/blueDark"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "129055032967",
+    "project_id": "schoolms-f2de9",
+    "storage_bucket": "schoolms-f2de9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129055032967:android:8663a41cd4326405749a22",
+        "android_client_info": {
+          "package_name": "com.example.shimitabenedictmagiegift.schoolms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "129055032967-dh8v63t7q2p8r585qefkhg0lsuv2hcsu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnno2nwg4nt8Ofxlqf5PLAQqF3HXhzkL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "129055032967-dh8v63t7q2p8r585qefkhg0lsuv2hcsu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

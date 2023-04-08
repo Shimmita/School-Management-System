@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeSplashMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/moderateWhite"
+    android:orientation="vertical"
+    tools:context=".mains.mainz.SplashMain">
+
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/school_msi_1" />
+
+    <TextView
+        android:id="@+id/tvBaselineTextSplash"
+        style="@style/TextAppearance.Material3.ActionBar.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/baseline_text_splash"
+        android:textColor="@color/blue"
+        android:textStyle="italic" />
+</RelativeLayout>

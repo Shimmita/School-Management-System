@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SchoolMS</string>
+    <string name="baseline_text_splash">welcome</string>
+    <string name="title">School Management System</string>
+    <string name="title_data_main_profile">registration</string>
+    <string name="enter_school_name">enter school name</string>
+    <string name="enter_school_code">enter school code</string>
+    <string name="login_to_school">Login To School</string>
+    <string name="register_new_school">Register New School</string>
+    <string name="enter_enrollment_key"> school enrollment key</string>
+    <string name="phone_number_1">phone number 1</string>
+    <string name="phone_number_2">phone number 2</string>
+</resources>

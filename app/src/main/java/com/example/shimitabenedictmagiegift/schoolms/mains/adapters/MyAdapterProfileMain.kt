@@ -11,7 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shimitabenedictmagiegift.schoolms.R
-import com.example.shimitabenedictmagiegift.schoolms.mains.data_class.DataClassMainsProfile
+import com.example.shimitabenedictmagiegift.schoolms.mains.data_class_main.DataClassMainsProfile
 import de.hdodenhof.circleimageview.CircleImageView
 
 class MyAdapterProfileMain(var arrayList: ArrayList<DataClassMainsProfile>, var context: Context) :

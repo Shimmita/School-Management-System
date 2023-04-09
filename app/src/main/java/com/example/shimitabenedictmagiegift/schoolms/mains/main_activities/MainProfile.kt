@@ -1,5 +1,6 @@
-package com.example.shimitabenedictmagiegift.schoolms.mains.mainz
+package com.example.shimitabenedictmagiegift.schoolms.mains.main_activities
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shimitabenedictmagiegift.schoolms.R
 import com.example.shimitabenedictmagiegift.schoolms.mains.adapters.MyAdapterProfileMain
-import com.example.shimitabenedictmagiegift.schoolms.mains.data_class.DataClassMainsProfile
+import com.example.shimitabenedictmagiegift.schoolms.mains.data_class_main.DataClassMainsProfile
 
 class MainProfile : AppCompatActivity() {
     companion object {
@@ -43,6 +44,7 @@ class MainProfile : AppCompatActivity() {
         //code ends
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun funPopulateRvMainProfile() {
         //code begins
         val arraylistDatClass = arrayListOf<DataClassMainsProfile>()

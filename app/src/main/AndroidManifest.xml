@@ -9,14 +9,14 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        tools:replace="android:icon"
         android:theme="@style/Theme.SchoolMS"
+        tools:replace="android:icon"
         tools:targetApi="31">
         <activity
-            android:name=".mains.mainz.MainProfile"
+            android:name=".mains.main_activities.MainProfile"
             android:exported="false" />
         <activity
-            android:name=".mains.mainz.SplashMain"
+            android:name=".mains.main_activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

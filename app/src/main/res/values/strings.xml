@@ -10,4 +10,7 @@
     <string name="enter_enrollment_key"> school enrollment key</string>
     <string name="phone_number_1">phone number 1</string>
     <string name="phone_number_2">phone number 2</string>
+    <string name="school_email">school email</string>
+    <string name="school_password">school password</string>
+    <string name="pick_school_logo_image_icon">pick your school logo file </string>
 </resources>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/moderateWhite"
     android:orientation="vertical"
-    tools:context=".mains.mainz.SplashMain">
+    tools:context=".mains.main_activities.SplashMain">
 
 
     <ImageView

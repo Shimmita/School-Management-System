@@ -13,6 +13,8 @@
         android:background="@drawable/background_main_profile"
         android:fontFamily="georgia"
         android:text="@string/login_to_school"
+        android:drawableStart="@drawable/login_icon"
+        android:textStyle="bold"
         android:textAllCaps="false"
         android:layout_marginBottom="10dp"
         android:textColor="#FFEB3B" />

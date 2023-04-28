@@ -13,4 +13,93 @@
     <string name="school_email">school email</string>
     <string name="school_password">school password</string>
     <string name="pick_school_logo_image_icon">pick your school logo file </string>
+    <string name="student_enrollment_key">student enrollment key</string>
+    <string name="student_full_name">student full name</string>
+    <string name="student_active_email">student active email</string>
+    <string name="student_phone_number">student phone number</string>
+    <string name="date">student date of birth</string>
+    <string name="student_password">student password (strong)</string>
+    <string name="student_image">student photo</string>
+    <string name="parent_photo">parent photo</string>
+    <string name="parent_full_name">parent full name</string>
+    <string name="parent_phone_number">parent phone number</string>
+    <string name="parent_password">parent password (strong)</string>
+    <string name="parent_email_address">parent email address</string>
+    <string name="disability_status_optional">disability status (optional)</string>
+    <string name="county_birth">student county of birth (i.e Nairobi,Busia)</string>
+    <string name="student_form_level">student form level</string>
+    <string name="student_photo">student photo</string>
+    <string name="next">next</string>
+    <string name="student_register">Create Student Account</string>
+    <string name="back">back</string>
+    <string name="provide_student_level">provide student level</string>
+    <string name="staff_photo">staff photo</string>
+    <string name="staff_enroll_key">staff enroll key</string>
+    <string name="staff_full_name">staff full name</string>
+    <string name="staff_active_email">staff active email</string>
+    <string name="staff_phone">staff phone</string>
+    <string name="staff_date_of_birth">staff date of birth</string>
+    <string name="staff_password_strong">staff password (strong)</string>
+    <string name="staff_disability_status_optional">staff disability status (optional)</string>
+    <string name="staff_county_of_birth_i_e_nairobi">staff county of birth (i.e Nairobi)</string>
+    <string name="register_staff">Create Account</string>
+    <string name="register_as">register as</string>
+    <string name="login_as">login as</string>
+    <string name="student_admission">student admission number</string>
+    <string name="student_email_address">student email address</string>
+    <string name="student_password_login">student password</string>
+    <string name="parent_password_login">parent password</string>
+    <string name="staff_enrollment_key_login">enter staff enrollment key</string>
+    <string name="registered_email_address">registered email address</string>
+    <string name="form_1">Form 1</string>
+    <string name="b">Grade : B</string>
+    <string name="view_exam_results">View Exam Results</string>
+    <string name="view_fees_paid">View Fees Paid</string>
+    <string name="contact_class_teacher">Contact Class Teacher</string>
+    <string name="_62_pts">62 pts</string>
+    <string name="student_name">SOLOMON AKOBE</string>
+    <string name="admission">Adm:3242</string>
+    <string name="which_results">which results</string>
+    <string name="student_admission_number">student admission number</string>
+    <string name="contact_developer">Contact Developer</string>
+    <string name="class_teacher_for">class teacher for</string>
+
+    <string-array name="form_level">
+        <item>Form 1</item>
+        <item>Form 2</item>
+        <item>Form 3</item>
+        <item>Form 4</item>
+        <item>Other (CBC System)</item>
+    </string-array>
+
+    <string-array name="which_exam_results">
+        <item>form 1</item>
+        <item>form 2</item>
+        <item>form 3</item>
+        <item>form 4</item>
+        <item>Other (CBC)</item>
+    </string-array>
+
+    <string-array name="staff_role">
+
+        <item>Principal</item>
+        <item>Deputy</item>
+        <item>Teacher</item>
+        <item>Bursa</item>
+
+    </string-array>
+
+    <string-array name="login_as">
+        <item>student</item>
+        <item>parent</item>
+        <item>staff</item>
+    </string-array>
+    <string-array name="class_teacher_form">
+        <item>none</item>
+        <item>form 1</item>
+        <item>form 2</item>
+        <item>form 3</item>
+        <item>form 4</item>
+        <item>Other (CBC System)</item>
+    </string-array>
 </resources>

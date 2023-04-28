@@ -1,6 +1,8 @@
 package com.example.shimitabenedictmagiegift.schoolms.mains.main_activities
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -13,10 +15,18 @@ import com.example.shimitabenedictmagiegift.schoolms.mains.data_class_main.DataC
 class MainProfile : AppCompatActivity() {
     companion object {
         private const val TAG = "MainProfile"
+        const val SHARED_PREFERENCE_NAME = "SCHOOL_MS"
+
     }
 
     //declaration of the globals
     lateinit var recyclerView: RecyclerView
+    //
+    lateinit var sharedPreferences: SharedPreferences
+    //
+
+    var schoolCode: String = ""
+    var schoolName: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_profile)
@@ -24,25 +34,10 @@ class MainProfile : AppCompatActivity() {
         funInitGlobals()
         //call fun to populate data on the rv
         funPopulateRvMainProfile()
-        //extract the intent data
-        funCheckIntentData()
     }
 
-    private fun funCheckIntentData() {
-        //code begins
-        val schoolName = intent.getStringExtra("school_name")
-        val schoolCode = intent.getStringExtra("school_code")
-        //check presence of any null
-        schoolCode?.trim()
-        schoolName?.trim()
-        //
-        if (schoolName != null || schoolCode != null) {
-            Log.d(TAG, "funCheckIntentData: school_Code:${schoolCode}")
-            //set the title of the status bar to the school name
-            this.title=schoolName
-        }
-        //code ends
-    }
+
+
 
     @SuppressLint("NotifyDataSetChanged")
     private fun funPopulateRvMainProfile() {
@@ -51,7 +46,7 @@ class MainProfile : AppCompatActivity() {
         arraylistDatClass.add(DataClassMainsProfile(R.drawable.school_msi_1, "student admission"))
         arraylistDatClass.add(
             DataClassMainsProfile(
-                R.drawable.register_icons,
+                R.drawable.login_imcons,
                 "Staff Registration"
             )
         )
@@ -61,8 +56,10 @@ class MainProfile : AppCompatActivity() {
         arraylistDatClass.add(DataClassMainsProfile(R.drawable.sports2, "Sports"))
         arraylistDatClass.add(DataClassMainsProfile(R.drawable.news, "School News"))
         arraylistDatClass.add(DataClassMainsProfile(R.drawable.calendar, "Calendar"))
+        arraylistDatClass.add(DataClassMainsProfile(R.drawable.logout,"Logout"))
 
-        val adapterMain = MyAdapterProfileMain(arraylistDatClass, this@MainProfile)
+
+        val adapterMain = MyAdapterProfileMain(arraylistDatClass, this@MainProfile, schoolCode)
         //
         recyclerView.apply {
             adapter = adapterMain
@@ -70,15 +67,34 @@ class MainProfile : AppCompatActivity() {
             adapterMain.notifyDataSetChanged()
         }
 
-        //
-        //update the title respectively
-        this.title = getString(R.string.title)
-        //
+
     }
 
     private fun funInitGlobals() {
-        //code begin
+        //code begins
+        schoolName = intent.getStringExtra("school_name").toString()
+        schoolCode = intent.getStringExtra("school_code").toString()
+        //check presence of any null
+        schoolCode.trim()
+        schoolName.trim()
+        Log.d(TAG, "funCheckIntentData: school_Code:${schoolCode}")
+
+        //set the title of the status bar to the school name
+        this.title = schoolName
+
+        //call fun to update data in the shared preference
+        funPutSchoolCodeShared(schoolCode,schoolName)
+        //
         recyclerView = findViewById(R.id.rvMainProfile)
+        //code ends
+    }
+
+    private fun funPutSchoolCodeShared(schoolCode: String, schoolName: String) {
+        //code begins
+        sharedPreferences=getSharedPreferences(SHARED_PREFERENCE_NAME,Context.MODE_PRIVATE)
+        sharedPreferences.apply {
+            edit().putString("code",schoolCode).putString("name",schoolName).apply()
+        }
         //code ends
     }
 }

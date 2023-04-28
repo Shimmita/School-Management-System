@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nestedStudentDetails"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5B5761"
+    android:orientation="vertical"
+    android:padding="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/linearStudentMain"
+        android:background="@drawable/background_main_profile"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:id="@+id/linearStudentDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgStudentPhoto"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@color/cardview_dark_background"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="2dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPickStudentPhoto"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/ui_ii"
+                android:layout_marginBottom="10dp"
+                android:drawableStart="@drawable/ic_insert_photo"
+                android:text="@string/student_photo"
+                android:textAllCaps="false"
+                android:textStyle="bold" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="50">
+
+                <EditText
+                    android:id="@+id/edtStudentEnrolKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_main_profile"
+                    android:drawableStart="@drawable/baseline_key_24"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/student_enrollment_key"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="50">
+
+                <EditText
+                    android:id="@+id/edtStudentAdmissionNumberReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_main_profile"
+                    android:drawableStart="@drawable/baseline_key_24"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/student_admission_number"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="50">
+
+                <EditText
+                    android:id="@+id/edtStudentFullNameReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_main_profile"
+                    android:drawableStart="@drawable/baseline_notes_24"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/student_full_name"
+                    android:inputType="textCapCharacters"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="50">
+
+                <EditText
+                    android:id="@+id/edtStudentEmailReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_main_profile"
+                    android:drawableStart="@drawable/baseline_email"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/student_active_email"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="50">
+
+                    <EditText
+                        android:id="@+id/edtStudentPhonReg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_main_profile"
+                        android:drawableStart="@drawable/baseline_call_24"
+                        android:drawablePadding="10dp"
+                        android:hint="@string/student_phone_number"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="50">
+
+                    <EditText
+                        android:id="@+id/edtStudentDOB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_main_profile"
+                        android:drawableStart="@drawable/baseline_calendar"
+                        android:drawablePadding="15dp"
+                        android:focusable="false"
+                        android:hint="@string/date"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="50"
+                    app:endIconMode="password_toggle">
+
+                    <EditText
+                        android:id="@+id/edtStudentPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_main_profile"
+                        android:drawableStart="@drawable/baseline_password_24"
+                        android:drawablePadding="10dp"
+                        android:hint="@string/student_password"
+                        android:inputType="textPassword"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="50">
+
+                    <EditText
+                        android:id="@+id/edtStudentDisability"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_main_profile"
+                        android:drawableStart="@drawable/baseline_disability_wheel"
+                        android:drawablePadding="10dp"
+                        android:hint="@string/disability_status_optional"
+                        android:inputType="textCapCharacters"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="50">
+
+                    <EditText
+                        android:id="@+id/edtStudentCounty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_main_profile"
+                        android:drawableStart="@drawable/baseline_place_24"
+                        android:drawablePadding="10dp"
+                        android:hint="@string/county_birth"
+                        android:inputType="textCapCharacters"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_main_profile"
+                    android:padding="5dp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="0">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/student_form_level"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spinnerStudentForm"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/background_main_profile"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:padding="5dp"
+                android:text="@string/next" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearParentDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgParentPhoto"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@color/cardview_dark_background"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="2dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPickParentPhoto"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:drawableStart="@drawable/ic_insert_photo"
+                android:text="@string/parent_photo"
+                android:textAllCaps="false"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="50">
+
+                <EditText
+                    android:id="@+id/edtParentNameReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_main_profile"
+                    android:drawableStart="@drawable/baseline_notes_24"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/parent_full_name"
+                    android:inputType="textCapCharacters"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="50">
+
+                <EditText
+                    android:id="@+id/edtParentEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_main_profile"
+                    android:drawableStart="@drawable/baseline_email"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/parent_email_address"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
+                app:endIconMode="password_toggle">
+
+                <EditText
+                    android:id="@+id/edtParentPassReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_main_profile"
+                    android:drawableStart="@drawable/baseline_password_24"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/parent_password"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="50">
+
+                <EditText
+                    android:id="@+id/edtParentPhonReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_main_profile"
+                    android:drawableStart="@drawable/baseline_call_24"
+                    android:drawablePadding="10dp"
+                    android:hint="@string/parent_phone_number"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnGenRegStudent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/background_main_profile"
+                android:backgroundTint="@color/blueDark"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:elevation="10dp"
+                android:text="@string/student_register"
+                android:textColor="@color/white" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/tvBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/background_main_profile"
+                android:padding="5dp"
+                android:text="@string/back"
+                android:textAllCaps="true"
+                app:drawableStartCompat="@drawable/ic_arrow_back" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

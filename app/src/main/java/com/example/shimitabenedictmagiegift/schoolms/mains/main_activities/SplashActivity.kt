@@ -3,6 +3,7 @@ package com.example.shimitabenedictmagiegift.schoolms.mains.main_activities
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Base64
@@ -16,6 +17,7 @@ import android.view.animation.LayoutAnimationController
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.res.ResourcesCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.shimitabenedictmagiegift.schoolms.R
@@ -31,8 +33,8 @@ class SplashActivity : AppCompatActivity() {
     companion object {
         private const val SCHOOLS_COLLECTION = "SCHOOLS"
         private const val TAG = "SplashMain"
-        private const val COLLECTION_NAME_KEYS = "CollectionKeys";
-        private const val DOCUMENT_KEYS = "keys";
+         const val COLLECTION_KEYS = "CollectionKeys";
+         const val DOCUMENT_KEYS = "keys";
         private const val SCHOOL_KEY = "school_enrol_key";
     }
 
@@ -61,10 +63,13 @@ class SplashActivity : AppCompatActivity() {
         //load the view in a material alert
         val view: View = layoutInflater.inflate(R.layout.regist_login_school, null, false)
         //extract views from the layout
-        val btnLoginSchool = view.findViewById<Button>(R.id.btn_login_school)
-        val btnRegisterSchool = view.findViewById<Button>(R.id.btn_school_register)
+        val btnLoginSchool = view.findViewById<AppCompatButton>(R.id.btn_login_school)
+        val btnRegisterSchool = view.findViewById<AppCompatButton>(R.id.btn_school_register)
+        val btnContactDeveloper = view.findViewById<AppCompatButton>(R.id.btnContactDeveloper)
         //inflate it in a alert
         val matAlertSchoolRegLogin = MaterialAlertDialogBuilder(this@SplashActivity)
+        matAlertSchoolRegLogin.setTitle("Home Dialog")
+        matAlertSchoolRegLogin.setIcon(R.drawable.school_msi_1)
         matAlertSchoolRegLogin.setView(view)
         matAlertSchoolRegLogin.background =
             ResourcesCompat.getDrawable(resources, R.drawable.background_main_profile, theme)
@@ -94,6 +99,7 @@ class SplashActivity : AppCompatActivity() {
         }
 
         btnRegisterSchool.setOnClickListener {
+
             btnRegisterSchool.startAnimation(
                 AnimationUtils.loadAnimation(
                     this, R.anim.push_left_out
@@ -104,9 +110,79 @@ class SplashActivity : AppCompatActivity() {
                 funMigrateSchoolRegistration()
 
             }, 320)
+
+        }
+
+        btnContactDeveloper.setOnClickListener {
+            //dismiss the material alert
+            btnContactDeveloper.startAnimation(
+                AnimationUtils.loadAnimation(
+                    this, R.anim.push_left_out
+                )
+            )
+
+            it.postDelayed({
+                funShowContactOptions()
+            }, 400)
         }
 
 
+    }
+
+    private fun funShowContactOptions() {
+        //code begins
+        val materialAlertContactDev = MaterialAlertDialogBuilder(this@SplashActivity)
+        materialAlertContactDev.background =
+            ResourcesCompat.getDrawable(resources, R.drawable.background_main_profile, theme)
+        materialAlertContactDev.setCancelable(false)
+        materialAlertContactDev.setTitle("Contact Developer")
+        materialAlertContactDev.setMessage(
+            "you can reach out to us via the options provided in case of:\n\n" +
+                    "i.Technical Support\n\n" +
+                    "ii.Account Activation\n\n" +
+                    "iii.School Enrolment Key Accreditation"
+        )
+        materialAlertContactDev.setPositiveButton("email") { dg, _ ->
+            funEmailDeveloper()
+            dg.dismiss()
+        }
+        materialAlertContactDev.setNeutralButton("call") { dg, _ ->
+            funCallDev()
+            dg.dismiss()
+        }
+        materialAlertContactDev.setNegativeButton("more") { dg, _ ->
+            funCreateMoreAlert()
+            dg.dismiss()
+
+        }
+        materialAlertContactDev.setIcon(R.drawable.school_msi_1)
+        materialAlertContactDev.create()
+        materialAlertContactDev.show()
+
+        //code ends
+    }
+
+    private fun funCreateMoreAlert() {
+        val alertDialogBuilderMore = AlertDialog.Builder(this@SplashActivity)
+        alertDialogBuilderMore.setCancelable(false)
+        alertDialogBuilderMore.setTitle("More")
+        alertDialogBuilderMore.setMessage("continue by selecting an option from the options given below.")
+        alertDialogBuilderMore.setPositiveButton("SMS") { dg, _ ->
+            //call fun sms
+            funSMSDev()
+            dg.dismiss()
+        }
+        alertDialogBuilderMore.setNegativeButton("Back") { dg, _ ->
+            //return by calling parent alert
+            funShowContactOptions()
+            dg.dismiss()
+        }
+        alertDialogBuilderMore.setNeutralButton("End") { dg, _ ->
+            //dismiss everything
+            dg.dismiss()
+        }
+        alertDialogBuilderMore.create()
+        alertDialogBuilderMore.show()
     }
 
     @SuppressLint("InflateParams")
@@ -239,7 +315,7 @@ class SplashActivity : AppCompatActivity() {
         //code begins
         val storeCheckSchoolEnrolKey = FirebaseFirestore.getInstance();
         //check for the match of the school enrollment key with that from the server
-        storeCheckSchoolEnrolKey.collection(COLLECTION_NAME_KEYS).document(DOCUMENT_KEYS).get()
+        storeCheckSchoolEnrolKey.collection(COLLECTION_KEYS).document(DOCUMENT_KEYS).get()
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     //successfully fetched
@@ -268,9 +344,16 @@ class SplashActivity : AppCompatActivity() {
                         }
                     }
                 } else if (!it.isSuccessful) {
-                    //something  went wrong
-                    Toast.makeText(this@SplashActivity, "something went wrong", Toast.LENGTH_LONG)
-                        .show()
+                    sweetAlertDialogProgress.apply {
+                        changeAlertType(SweetAlertDialog.ERROR_TYPE)
+                        titleText="Registration Failed"
+                        contentText=it.exception?.message
+                        confirmText="okay"
+                        setCancelClickListener {
+                            it.dismiss()
+                        }
+                    }
+
                 }
             }
         //code ends
@@ -343,7 +426,7 @@ class SplashActivity : AppCompatActivity() {
         val mapData =
             hashMapOf(
                 keySchoolCode to schoolCode,
-                keyName to schoolName,
+                keyName to schoolName.uppercase(Locale.ROOT),
                 keyEmail to schoolEmail,
                 keyPhone1 to phone1,
                 keyPhone2 to phone2,
@@ -444,7 +527,7 @@ class SplashActivity : AppCompatActivity() {
                 //data empty
                 Toast.makeText(
                     this@SplashActivity,
-                    "cannot submit empty fields!",
+                    "all fields are required!",
                     Toast.LENGTH_SHORT
                 )
                     .show()
@@ -468,7 +551,7 @@ class SplashActivity : AppCompatActivity() {
                 //show progress dialog
                 sweetAlertDialogProgress.apply {
                     titleText = "LOGIN"
-                    contentText = "processing request"
+                    contentText = "processing"
                     create()
                     show()
                 }
@@ -480,29 +563,26 @@ class SplashActivity : AppCompatActivity() {
                         if (it.isSuccessful) {
 
                             val dataReturned = it.result.documents
-                            var isSchoolCodePresent:Boolean=false;
-                            val schoolCode=""
-                            var schoolNameBackend="";
+                            var isSchoolCodePresent = false;
+                            var schoolNameBackend = "";
                             for (data in dataReturned) {
                                 if (data["code"].toString() == textSchoolCode) {
                                     //change bool value since school code is found
-                                    isSchoolCodePresent=true
-                                    schoolNameBackend=data["name"].toString()
+                                    isSchoolCodePresent = true
+                                    schoolNameBackend = data["name"].toString()
                                 }
 
                             }
 
                             //check to ensure if true the value of the school was found and name present
-                            if (isSchoolCodePresent && schoolNameBackend.isNotEmpty())
-                            {
-                                //proceed
+                            if (isSchoolCodePresent && schoolNameBackend.isNotEmpty()) {
                                 //login was a success
                                 sweetAlertDialogProgress.apply {
                                     changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
                                     setCancelClickListener(null)
                                     titleText = "Successful"
                                     contentText = "school found"
-                                    confirmText="Proceed"
+                                    confirmText = "proceed"
 
                                     //fetching the value of the school name and save it in a variable
 
@@ -510,11 +590,12 @@ class SplashActivity : AppCompatActivity() {
                                         //dismiss alert
                                         dismiss()
                                         //school exists is registered
-                                        val intent = Intent(this@SplashActivity, MainProfile::class.java)
-                                        intent.putExtra("school_name",schoolNameBackend)
+                                        val intent =
+                                            Intent(this@SplashActivity, MainProfile::class.java)
+                                        intent.putExtra("school_name", schoolNameBackend)
                                         intent.putExtra("school_code", textSchoolCode)
                                         startActivity(intent)
-                                        finishAffinity()
+                                        finish()
                                         //
                                     }
 
@@ -522,15 +603,13 @@ class SplashActivity : AppCompatActivity() {
 
 
                                 //
-                            }
-                            else
-                            {
+                            } else {
                                 sweetAlertDialogProgress.apply {
                                     changeAlertType(SweetAlertDialog.WARNING_TYPE)
-                                    contentText="not found"
-                                    titleText="School Not Registered!"
-                                    confirmText="retry"
-                                    cancelText="register"
+                                    contentText = "not found"
+                                    titleText = "School Not Registered!"
+                                    confirmText = "retry"
+                                    cancelText = "register"
 
                                     setConfirmClickListener {
                                         dismiss()
@@ -685,6 +764,43 @@ class SplashActivity : AppCompatActivity() {
         //code ends
     }
 
+    private fun funEmailDeveloper() {
+        //code
+        val emailsMyEmails = arrayOf("douglasshimita3@gmail.com", "shimitadouglas@gmail.com","benedictmaundu2000@gmail.com")
+        val emailSubject = "write email subject here"
+        val messageBodyText = "Dear user, write your message here"
+        val intentEmail = Intent()
+        intentEmail.action = Intent.ACTION_SEND
+        intentEmail.setDataAndType(Uri.parse("email"), "message/rfc822")
+        intentEmail.putExtra(Intent.EXTRA_EMAIL, emailsMyEmails)
+        intentEmail.putExtra(Intent.EXTRA_SUBJECT, emailSubject)
+        intentEmail.putExtra(Intent.EXTRA_TEXT, messageBodyText)
+        startActivity(Intent.createChooser(intentEmail, "Launch Email"))
+        //code ends
+
+    }
+
+    private fun funSMSDev() {
+        //code begins
+        val phoneNumber = "+254757450727"
+        val messageBody =
+            "hey,write your text here and send it to me, i will be glad to feedback you"
+        val intentMessaging = Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", phoneNumber, null))
+        startActivity(Intent.createChooser(intentMessaging, "Launch SMS APP"))
+        //code ends
+
+    }
+
+    private fun funCallDev() {
+        //code begins
+        //start an intent to the phone call
+        val numberIntent = Intent()
+        numberIntent.action = Intent.ACTION_DIAL
+        numberIntent.data = Uri.parse("tel:+254757450727")
+        startActivity(numberIntent)
+        //code ends
+
+    }
 
     // Hash a password using SHA-256
     private fun hashPassword(password: String): String {

@@ -10,23 +10,38 @@
         android:id="@+id/btn_login_school"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_main_profile"
-        android:fontFamily="georgia"
-        android:text="@string/login_to_school"
-        android:drawableStart="@drawable/login_icon"
-        android:textStyle="bold"
-        android:textAllCaps="false"
         android:layout_marginBottom="10dp"
-        android:textColor="#FFEB3B" />
+        android:background="@drawable/background_main_profile"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/login_to_school"
+        android:backgroundTint="@color/transWhite"
+        android:textAllCaps="false"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_school_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/background_main_profile"
-        android:fontFamily="georgia"
+        android:backgroundTint="@color/transWhite"
+        android:fontFamily="sans-serif-medium"
         android:text="@string/register_new_school"
+        android:textAllCaps="false"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnContactDeveloper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background_main_profile"
+        android:fontFamily="sans-serif-medium"
+        android:backgroundTint="@color/transWhite"
+        android:text="@string/contact_developer"
         android:textAllCaps="false"
         android:textColor="@color/blueDark"
         android:textStyle="bold" />

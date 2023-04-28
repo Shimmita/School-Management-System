@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/nestedStaffDetails"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/linearStaffDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_main_profile"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgStaffPhoto"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@color/cardview_dark_background"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnPickStaffPhoto"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_main_profile"
+            android:backgroundTint="#94A5B3"
+            android:drawableStart="@drawable/ic_insert_photo"
+            android:text="@string/staff_photo"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="50">
+
+            <EditText
+                android:id="@+id/edtStaffEnrolKey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_main_profile"
+                android:drawableStart="@drawable/baseline_key_24"
+                android:drawablePadding="10dp"
+                android:hint="@string/staff_enroll_key"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/background_main_profile"
+            app:counterEnabled="true"
+            app:counterMaxLength="50">
+
+            <Spinner
+                android:id="@+id/spinnerStaffRole"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/edtStaffRole"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_main_profile"
+                android:drawableStart="@drawable/baseline_man_role"
+                android:drawablePadding="10dp"
+                android:focusable="false"
+                android:hint="@string/register_as"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="50">
+
+            <EditText
+                android:id="@+id/edtStaffFullNameReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_main_profile"
+                android:drawableStart="@drawable/baseline_notes_24"
+                android:drawablePadding="10dp"
+                android:hint="@string/staff_full_name"
+                android:inputType="textCapCharacters"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="50">
+
+            <EditText
+                android:id="@+id/edtStafftEmailReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_main_profile"
+                android:drawableStart="@drawable/baseline_email"
+                android:drawablePadding="10dp"
+                android:hint="@string/staff_active_email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="50">
+
+            <EditText
+                android:id="@+id/edtStaffPhonReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_main_profile"
+                android:drawableStart="@drawable/baseline_call_24"
+                android:drawablePadding="10dp"
+                android:hint="@string/staff_phone"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="50">
+
+            <EditText
+                android:id="@+id/edtStaffDOB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_main_profile"
+                android:drawableStart="@drawable/baseline_calendar"
+                android:drawablePadding="15dp"
+                android:focusable="false"
+                android:hint="@string/staff_date_of_birth"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="50"
+            app:endIconMode="password_toggle">
+
+            <EditText
+                android:id="@+id/edtStaffPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_main_profile"
+                android:drawableStart="@drawable/baseline_password_24"
+                android:drawablePadding="10dp"
+                android:hint="@string/staff_password_strong"
+                android:inputType="textPassword"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="50">
+
+            <EditText
+                android:id="@+id/edtStaffDisability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_main_profile"
+                android:drawableStart="@drawable/baseline_disability_wheel"
+                android:drawablePadding="10dp"
+                android:hint="@string/staff_disability_status_optional"
+                android:inputType="textCapCharacters"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="50">
+
+            <EditText
+                android:id="@+id/edtStaffCounty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_main_profile"
+                android:drawableStart="@drawable/baseline_place_24"
+                android:drawablePadding="10dp"
+                android:hint="@string/staff_county_of_birth_i_e_nairobi"
+                android:inputType="textCapCharacters"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnRegisterStaff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_main_profile"
+            android:backgroundTint="@color/teal_700"
+            android:elevation="10dp"
+            android:padding="5dp"
+            android:text="@string/register_staff"
+            android:textAllCaps="true"
+            android:textColor="#31220B" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

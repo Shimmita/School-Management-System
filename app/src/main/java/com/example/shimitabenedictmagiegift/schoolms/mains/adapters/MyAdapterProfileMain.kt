@@ -15,6 +15,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shimitabenedictmagiegift.schoolms.R
+import com.example.shimitabenedictmagiegift.schoolms.mains.dash.NewsDash
 import com.example.shimitabenedictmagiegift.schoolms.mains.data_class_main.DataClassMainsProfile
 import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.HandleLogin
 import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.StaffRegistration
@@ -42,7 +43,6 @@ class MyAdapterProfileMain(
 
             cardView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.abc_fade_out))
 
-            //
             if (textPresent.toString().contains("student", true)) {
                 //launch activity student registration since this is the one requested
                 cardView.postDelayed({
@@ -90,7 +90,13 @@ class MyAdapterProfileMain(
                         dg.dismiss()
                     }.create().show()
             } else if (textPresent.toString().contains("news", true)) {
-                funAlertNotUpdated("School News", "currently news repository is empty")
+                //migrate to the news DashBoard
+                cardView.postDelayed({
+                    context.startActivity(Intent(context, NewsDash::class.java))
+                }, 200)
+
+                //
+
             } else if (textPresent.toString().contains("calendar", true)) {
                 funAlertNotUpdated(
                     "school calendar",
@@ -135,10 +141,7 @@ class MyAdapterProfileMain(
 
         private fun funAlertLoginAs(loginUI: View, spinnerLoginRole: Spinner) {
 
-            //code begins
             val editRoleSelection: EditText = loginUI.findViewById(R.id.edtRoleLogin)
-            //
-
 
             val materialAlertLoginAs = MaterialAlertDialogBuilder(context)
             materialAlertLoginAs.setTitle("Login")
@@ -163,11 +166,11 @@ class MyAdapterProfileMain(
                         intentParentLogin.putExtra("role", "student")
                         handleLoginIntents(intentParentLogin)
                         //
-                    } else if (roleText.contains("staff", true)) {
+                    } else if (roleText.contains("administration", true)) {
 
                         //
                         val intentStaffLogin = Intent(context, HandleLogin::class.java)
-                        intentStaffLogin.putExtra("role", "staff")
+                        intentStaffLogin.putExtra("role", "administration")
                         handleLoginIntents(intentStaffLogin)
 
                     } else if (roleText.contains("parent", true)) {
@@ -178,6 +181,7 @@ class MyAdapterProfileMain(
 
 
                     }
+                    dg.dismiss()
 
                 }
 

@@ -53,7 +53,6 @@ class MainProfile : AppCompatActivity() {
         arraylistDatClass.add(DataClassMainsProfile(R.drawable.logins_icon, "Login"))
         arraylistDatClass.add(DataClassMainsProfile(R.drawable.aca, "Academics"))
         arraylistDatClass.add(DataClassMainsProfile(R.drawable.finance, "Finance"))
-        arraylistDatClass.add(DataClassMainsProfile(R.drawable.sports2, "Sports"))
         arraylistDatClass.add(DataClassMainsProfile(R.drawable.news, "School News"))
         arraylistDatClass.add(DataClassMainsProfile(R.drawable.calendar, "Calendar"))
         arraylistDatClass.add(DataClassMainsProfile(R.drawable.logout,"Logout"))
@@ -72,29 +71,18 @@ class MainProfile : AppCompatActivity() {
 
     private fun funInitGlobals() {
         //code begins
-        schoolName = intent.getStringExtra("school_name").toString()
-        schoolCode = intent.getStringExtra("school_code").toString()
-        //check presence of any null
-        schoolCode.trim()
-        schoolName.trim()
-        Log.d(TAG, "funCheckIntentData: school_Code:${schoolCode}")
+        schoolCode=getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE).getString("code","").toString()
+        schoolName=getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE).getString("name","").toString()
 
-        //set the title of the status bar to the school name
+        Log.d(TAG, "funCheckIntentData: school_Code:${schoolCode}\n")
+        Log.d(TAG, "funCheckIntentData: school_Name:${schoolName}\n")
+        //set title
         this.title = schoolName
 
-        //call fun to update data in the shared preference
-        funPutSchoolCodeShared(schoolCode,schoolName)
+
         //
         recyclerView = findViewById(R.id.rvMainProfile)
         //code ends
     }
 
-    private fun funPutSchoolCodeShared(schoolCode: String, schoolName: String) {
-        //code begins
-        sharedPreferences=getSharedPreferences(SHARED_PREFERENCE_NAME,Context.MODE_PRIVATE)
-        sharedPreferences.apply {
-            edit().putString("code",schoolCode).putString("name",schoolName).apply()
-        }
-        //code ends
-    }
 }

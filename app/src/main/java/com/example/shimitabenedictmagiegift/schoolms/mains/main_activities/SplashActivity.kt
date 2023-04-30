@@ -1,6 +1,7 @@
 package com.example.shimitabenedictmagiegift.schoolms.mains.main_activities
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
@@ -21,6 +22,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.res.ResourcesCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.shimitabenedictmagiegift.schoolms.R
+import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.MainProfile.Companion.SHARED_PREFERENCE_NAME
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -587,16 +589,20 @@ class SplashActivity : AppCompatActivity() {
                                     //fetching the value of the school name and save it in a variable
 
                                     setConfirmClickListener {
-                                        //dismiss alert
-                                        dismiss()
                                         //school exists is registered
+
+                                        //put the school code and the school name in a shared preference
+                                        val sharedPreferences=getSharedPreferences(SHARED_PREFERENCE_NAME,Context.MODE_PRIVATE)
+                                        sharedPreferences.edit().putString("code",textSchoolCode).putString("name",schoolNameBackend).apply()
+                                        //
                                         val intent =
                                             Intent(this@SplashActivity, MainProfile::class.java)
-                                        intent.putExtra("school_name", schoolNameBackend)
-                                        intent.putExtra("school_code", textSchoolCode)
                                         startActivity(intent)
                                         finish()
-                                        //
+
+                                        //dismiss alert
+                                        dismiss()
+
                                     }
 
                                 }

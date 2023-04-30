@@ -47,7 +47,13 @@ class StudentRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         private const val CAMERA_REQUEST_STUDENT = 906;
         private const val PERMISSION_REQUEST_STUDENT_STORAGE_ACCESS = 776
         private const val PERMISSION_REQUEST_PARENT_STORAGE_ACCESS = 733
+        const val COLLECTION_STUDENTS = "STUDENTS"
+        const val COLLECTION_FEES = "FEES"
+        const val COLLECTION_STUDENT_RESULTS = "STUDENT RESULTS"
+        const val COLLECTION_PARENTS = "PARENTS"
+
     }
+
 
     //sharedPreference declaration
     lateinit var sharedPreferences: SharedPreferences
@@ -88,11 +94,6 @@ class StudentRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
     private var studentPhotoUr: Uri? = null
     private lateinit var datePickerDialog: DatePickerDialog
     lateinit var calendar: Calendar
-    //
-
-    //declaration of bitmaps in case camera is used
-    lateinit var bitmapParent: Bitmap
-    lateinit var bitmapStudent: Bitmap
 
     //global student details in String
     lateinit var enrolKey: String
@@ -106,8 +107,8 @@ class StudentRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
     lateinit var studentForm: String
     lateinit var studentDOB: String
     lateinit var nestedScrollViewStudent: NestedScrollView
-    //
 
+    //
     private var schoolCodeIntent = ""
 
 
@@ -529,54 +530,52 @@ class StudentRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         val pathStudentImage = "Students/$studentEmail"
         val storageParent = FirebaseStorage.getInstance().reference
         studentPhotoUr?.let {
-            storageParent.child(pathStudentImage).putBytes(byteArrayImageAfterCompression).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Log.d(TAG, "funPostStudentImageStore: begin 6")
-                    it.result.storage.downloadUrl.addOnCompleteListener {
-                        if (it.isSuccessful)
-                        {
-                            val downloadUriStudent=it.result.toString()
-                            funPostStudentDetailsStore(
-                                downloadUriStudent,
-                                parentUID,
-                                sweetAlertDialogProgress,
-                                studentUID
-                            )
-                        }
-                        else if (!it.isSuccessful)
-                        {
-                            //failed
-                            sweetAlertDialogProgress.apply {
-                                changeAlertType(SweetAlertDialog.ERROR_TYPE)
-                                contentText = it.exception?.message
-                                title = "Registration Failed"
-                                confirmText = "retry"
-                                cancelText = "return"
-                                setConfirmClickListener {
-                                    it.dismiss()
-                                }
-                                setCancelClickListener {
-                                    dismiss()
-                                    startActivity(
-                                        Intent(
-                                            this@StudentRegistration,
-                                            MainProfile::class.java
+            storageParent.child(pathStudentImage).putBytes(byteArrayImageAfterCompression)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        Log.d(TAG, "funPostStudentImageStore: begin 6")
+                        it.result.storage.downloadUrl.addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                val downloadUriStudent = it.result.toString()
+                                funPostStudentDetailsStore(
+                                    downloadUriStudent,
+                                    parentUID,
+                                    sweetAlertDialogProgress,
+                                    studentUID
+                                )
+                            } else if (!it.isSuccessful) {
+                                //failed
+                                sweetAlertDialogProgress.apply {
+                                    changeAlertType(SweetAlertDialog.ERROR_TYPE)
+                                    contentText = it.exception?.message
+                                    title = "Registration Failed"
+                                    confirmText = "retry"
+                                    cancelText = "return"
+                                    setConfirmClickListener {
+                                        it.dismiss()
+                                    }
+                                    setCancelClickListener {
+                                        dismiss()
+                                        startActivity(
+                                            Intent(
+                                                this@StudentRegistration,
+                                                MainProfile::class.java
+                                            )
                                         )
-                                    )
-                                    finish()
-                                }
+                                        finish()
+                                    }
 
+                                }
                             }
                         }
-                    }
 
-                } else if (!it.isSuccessful) {
-                    Log.d(TAG, "funPostStudentImageStore: failure 5")
-                    sweetAlertDialogProgress.dismiss()
-                    //alert failure
-                    funAlertFailureTaskSnapshot(it)
+                    } else if (!it.isSuccessful) {
+                        Log.d(TAG, "funPostStudentImageStore: failure 5")
+                        sweetAlertDialogProgress.dismiss()
+                        //alert failure
+                        funAlertFailureTaskSnapshot(it)
+                    }
                 }
-            }
         }
         //code ends
     }
@@ -615,7 +614,8 @@ class StudentRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         )
 
         val storeStudentDetails = FirebaseFirestore.getInstance()
-        storeStudentDetails.collection("STUDENTS").document(pathDocumentStudent).set(mapData)
+        storeStudentDetails.collection(COLLECTION_STUDENTS).document(pathDocumentStudent)
+            .set(mapData)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     Log.d(TAG, "funPostStudentDetailsStore: begin 7")
@@ -646,36 +646,37 @@ class StudentRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         val mapDataUpdate = hashMapOf(keyChild to studentUID.toString())
 
         val storeUpdateParent = FirebaseFirestore.getInstance()
-        storeUpdateParent.collection("PARENTS").document("$schoolCodeIntent$parentUID").update(
-            mapDataUpdate as Map<String, Any>
-        ).addOnCompleteListener {
-            if (it.isSuccessful) {
-                Log.d(TAG, "funUpdateParentWithChild: begin 8")
-                //updated parent successfully
-                sweetAlertDialogProgress.apply {
-                    contentText = "saving"
-                    //call fun proceed creation of other student Collections i.e exams,fees,classTeacher
-                    val stringStudentID = studentUID.toString()
-                    funCreateCollectionStudentExam(
-                        sweetAlertDialogProgress,
-                        stringStudentID)
+        storeUpdateParent.collection(COLLECTION_PARENTS).document("$schoolCodeIntent$parentUID")
+            .update(
+                mapDataUpdate as Map<String, Any>
+            ).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Log.d(TAG, "funUpdateParentWithChild: begin 8")
+                    //updated parent successfully
+                    sweetAlertDialogProgress.apply {
+                        contentText = "saving"
+                        //call fun proceed creation of other student Collections i.e exams,fees,classTeacher
+                        val stringStudentID = studentUID.toString()
+                        funCreateCollectionStudentExam(
+                            sweetAlertDialogProgress,
+                            stringStudentID
+                        )
+                    }
+                }
+                if (!it.isSuccessful) {
+                    Log.d(TAG, "funUpdateParentWithChild: failure 7")
+                    sweetAlertDialogProgress.apply {
+                        dismiss()
+                        funAlertFailureTaskVoid(it)
+                    }
                 }
             }
-            if (!it.isSuccessful) {
-                Log.d(TAG, "funUpdateParentWithChild: failure 7")
-                sweetAlertDialogProgress.apply {
-                    dismiss()
-                    funAlertFailureTaskVoid(it)
-                }
-            }
-        }
     }
 
     private fun funCreateCollectionStudentExam(
         sweetAlertDialogProgress: SweetAlertDialog,
         stringStudentID: String
     ) {
-        //code begins
         //create collection studentExam
         val keyGrade = "grade"
         val keyPoints = "points"
@@ -688,6 +689,9 @@ class StudentRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         val keyGeography = "geography"
         val keyHistory = "history"
         val keyCRE = "cre"
+        val keyStudentID = "id"
+        val keyName = "name"
+        val keyForm = "form"
         val keyAgriculture = "agriculture"
         val keyComputer = "computer"
         val keyBusiness = "business"
@@ -706,11 +710,14 @@ class StudentRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
             keyCRE to "",
             keyAgriculture to "",
             keyComputer to "",
-            keyBusiness to ""
+            keyBusiness to "",
+            keyName to studentFullName,
+            keyStudentID to stringStudentID,
+            keyForm to studentForm
         )
 
         val store = FirebaseFirestore.getInstance()
-        store.collection("STUDENT RESULTS")
+        store.collection(COLLECTION_STUDENT_RESULTS)
             .document("$schoolCodeIntent$studentAdmissionNumber$stringStudentID").set(mapData)
             .addOnCompleteListener {
 
@@ -735,36 +742,37 @@ class StudentRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         //code ends
     }
 
-    private fun funCreateCollectionClassTeacher(
-        sweetAlertDialogProgress: SweetAlertDialog,
+
+    private fun funCreateCollectionFees(
         stringStudentID: String,
+        sweetAlertDialogProgress: SweetAlertDialog,
         store: FirebaseFirestore,
     ) {
+        //code begins
+        val keyPaid = "paid"
+        val keyBalance = "balance"
+        val keyWhole = "required"
+        val keyStudentID = "id"
+        val keyName = "name"
+        val keyStudentForm = "form"
 
-        //code
-        val keyTeacherName = "name"
-        val keyTeacherPhone = "phone"
-        val keyTeacherSubject = "subject"
-        val keyTeacherImage = "image"
-        val keyTeacherForm="form"
         val mapData = hashMapOf(
-            keyTeacherName to "",
-            keyTeacherPhone to "",
-            keyTeacherSubject to "",
-            keyTeacherImage to "",
-            keyTeacherForm to ""
+            keyPaid to "",
+            keyBalance to "",
+            keyWhole to "",
+            keyStudentID to stringStudentID,
+            keyName to studentFullName,
+            keyStudentForm to studentForm
         )
-        store.collection("CLASS TEACHER")
-            .document("$schoolCodeIntent$studentAdmissionNumber$stringStudentID")
-            .set(mapData)
+        store.collection(COLLECTION_FEES)
+            .document("$schoolCodeIntent$studentAdmissionNumber$stringStudentID").set(mapData)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Log.d(TAG, "funCreateCollectionClassTeacher: begin 11")
                     //completely registered
                     sweetAlertDialogProgress.apply {
                         changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
-                        titleText="Successful"
-                        contentText="student registered"
+                        titleText = "Successful"
+                        contentText = "student registered"
                         confirmText = "ok"
                         setConfirmClickListener {
                             //sign out the current user(student registered
@@ -789,41 +797,6 @@ class StudentRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
                     }
                 }
 
-            }
-        //code ends
-    }
-
-    private fun funCreateCollectionFees(
-        stringStudentID: String,
-        sweetAlertDialogProgress: SweetAlertDialog,
-        store: FirebaseFirestore,
-    ) {
-        //code begins
-        val keyPaid = "paid"
-        val keyBalance = "balance"
-        val keyWhole = "required"
-
-        val mapData = hashMapOf(keyPaid to "", keyBalance to "", keyWhole to "")
-        store.collection("FEES")
-            .document("$schoolCodeIntent$studentAdmissionNumber$stringStudentID").set(mapData)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Log.d(TAG, "funCreateCollectionFees: begin 10")
-                    sweetAlertDialogProgress.contentText = "finishing"
-                    //finalize creating class teacher collection
-                    funCreateCollectionClassTeacher(
-                        sweetAlertDialogProgress,
-                        stringStudentID,
-                        store
-                    )
-                } else if (!it.isSuccessful) {
-                    Log.d(TAG, "funCreateCollectionFees: failure 9")
-                    sweetAlertDialogProgress.apply {
-                        dismiss()
-                        //alert error
-                        funAlertFailureTaskVoid(it)
-                    }
-                }
             }
         //code ends
     }
@@ -874,6 +847,7 @@ class StudentRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         sweetAlertDialog.create()
         sweetAlertDialog.show()
     }
+
 
     private fun funRequireParentPhoto() {
         //alert student photo required

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
-
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_height="match_parent">
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -16,21 +15,19 @@
         app:counterMaxLength="50">
 
         <Spinner
-            android:id="@+id/spinnerClassTeacherFor"
+            android:id="@+id/spinnerAdminRole"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <EditText
-            android:id="@+id/edtClassTeacherFor"
+            android:id="@+id/edtAdminRole"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_main_profile"
             android:drawableStart="@drawable/baseline_man_role"
             android:drawablePadding="10dp"
             android:focusable="false"
-            android:hint="@string/class_teacher_of"
+            android:hint="@string/login_as"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
 </LinearLayout>

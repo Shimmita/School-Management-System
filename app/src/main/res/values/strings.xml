@@ -72,6 +72,7 @@
         <item>Other (CBC System)</item>
     </string-array>
 
+
     <string-array name="which_exam_results">
         <item>form 1</item>
         <item>form 2</item>
@@ -81,7 +82,6 @@
     </string-array>
 
     <string-array name="staff_role">
-
         <item>Principal</item>
         <item>Deputy</item>
         <item>Teacher</item>
@@ -92,7 +92,7 @@
     <string-array name="login_as">
         <item>student</item>
         <item>parent</item>
-        <item>staff</item>
+        <item>administration</item>
     </string-array>
     <string-array name="class_teacher_form">
         <item>none</item>
@@ -100,6 +100,29 @@
         <item>form 2</item>
         <item>form 3</item>
         <item>form 4</item>
-        <item>Other (CBC System)</item>
+        <item>other (CBC System)</item>
     </string-array>
+    <string name="title_activity_principal_dash">PrincipalDash</string>
+    <string name="class_teacher_of">class teacher of</string>
+    <string name="bursa_dash">BURSA DASHBOARD</string>
+    <string name="principal_dash">PRINCIPAL DASHBOARD</string>
+    <string name="deputy_dash">DEPUTY PRINCIPAL DASHBOARD</string>
+    <string name="teacher_dash">TEACHER DASHBOARD</string>
+    <string name="parent_dash">PARENT DASHBOARD</string>
+    <string name="student_dash">STUDENT DASHBOARD</string>
+    <string name="benson_gengoza">BENSON GENGOZA</string>
+    <string name="update_student_fees">Update Student Fees</string>
+    <string name="post_information">post information</string>
+    <string name="view_school_results">view school results</string>
+    <string name="select_results_option">select results option</string>
+    <string name="enter_amount_paid">enter amount paid</string>
+    <string name="logout">logout</string>
+    <string name="enrollment_key">enrollment key</string>
+    <string name="password">password</string>
+    <string name="email_address">email address</string>
+    <string name="title_about">Title (about)</string>
+    <string name="message_description">message (description)</string>
+    <string name="title_retrieve_news">TITLE</string>
+    <string name="message_placeholder">message placeholder</string>
+    <string name="school_principal">school principal</string>
 </resources>

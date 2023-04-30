@@ -18,31 +18,30 @@
         tools:replace="android:icon"
         tools:targetApi="31">
         <activity
-            android:name=".mains.dash.StudentDash"
-            android:exported="false" >
-          <!--  <intent-filter>
+            android:name=".mains.dash.NewsDash"
+            android:exported="false" />
+        <activity
+            android:name=".mains.dash.DeputyDash"
+            android:exported="false" />
+        <activity
+            android:name=".mains.dash.TeacherDash"
+            android:exported="false" />
+        <activity
+            android:name=".mains.dash.PrincipalDash"
+            android:exported="false" />
+        <activity
+            android:name=".mains.dash.BursaDash"
+            android:exported="false">
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
-
         <activity
-            android:name=".mains.main_activities.HandleLogin"
-            android:exported="false" />
-        <activity
-            android:name=".mains.main_activities.StaffRegistration"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".mains.main_activities.StudentRegistration"
+            android:name=".mains.dash.StudentDash"
             android:exported="false">
+
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,23 +51,53 @@
             -->
         </activity>
         <activity
+            android:name=".mains.main_activities.HandleLogin"
+            android:exported="false" />
+        <activity
+            android:name=".mains.main_activities.StaffRegistration"
+            android:exported="false">
+
+            <!--
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".mains.main_activities.StudentRegistration"
+            android:exported="false">
+
+            <!--
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+            -->
+        </activity>
+        <activity
             android:name=".mains.main_activities.MainProfile"
             android:exported="false">
-          <!--  <intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".mains.main_activities.SplashActivity"
-            android:exported="false">
+            android:exported="true">
 
-           <!-- <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
     </application>
 

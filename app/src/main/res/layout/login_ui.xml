@@ -56,23 +56,6 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:counterEnabled="true"
-                app:counterMaxLength="50">
-
-                <EditText
-                    android:id="@+id/edtStudentAdmissionLoginParent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_main_profile"
-                    android:drawableStart="@drawable/baseline_man_role"
-                    android:drawablePadding="10dp"
-                    android:hint="@string/student_admission"
-                    android:inputType="numberDecimal"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -125,23 +108,6 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:counterEnabled="true"
-                app:counterMaxLength="50">
-
-                <EditText
-                    android:id="@+id/edtStudentAdmissionLoginStudent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_main_profile"
-                    android:drawableStart="@drawable/baseline_man_role"
-                    android:drawablePadding="10dp"
-                    android:hint="@string/student_admission"
-                    android:inputType="numberDecimal"
-                    android:textColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -206,7 +172,7 @@
                     android:background="@drawable/background_main_profile"
                     android:drawableStart="@drawable/baseline_man_role"
                     android:drawablePadding="10dp"
-                    android:hint="@string/staff_enrollment_key_login"
+                    android:hint="@string/enrollment_key"
                     android:inputType="numberDecimal"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -224,7 +190,7 @@
                     android:background="@drawable/background_main_profile"
                     android:drawableStart="@drawable/baseline_email"
                     android:drawablePadding="10dp"
-                    android:hint="@string/registered_email_address"
+                    android:hint="@string/email_address"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -244,7 +210,7 @@
                     android:background="@drawable/background_main_profile"
                     android:drawableStart="@drawable/baseline_password_24"
                     android:drawablePadding="10dp"
-                    android:hint="@string/parent_password"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>

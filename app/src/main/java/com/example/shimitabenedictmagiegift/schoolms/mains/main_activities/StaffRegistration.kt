@@ -35,7 +35,8 @@ import java.util.*
 class StaffRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     companion object {
         private const val TAG = "StaffRegistration"
-        const val STAFF_ENROLL_KEY = "staff_enrol_key"
+        const val TEACHER_KEY = "teacher_key"
+        const val ADMINISTRATION_KEY="admin_key"
         const val COLLECTION_TEACHER = "Teacher"
         const val COLLECTION_BURSA = "Bursa"
         const val COLLECTION_DEPUTY = "Deputy"
@@ -257,7 +258,7 @@ class StaffRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         storeCheckEnrol.collection(COLLECTION_KEYS).document(DOCUMENT_KEYS).get()
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    val keyReturned = it.result.get(STAFF_ENROLL_KEY)
+                    val keyReturned = it.result.get(ADMINISTRATION_KEY)
                     if (textEnrolKey == keyReturned) {
                         //proceed with registration process key is true
                         funProceedRegistrationPrincipal(sweetAlertDialog)
@@ -416,6 +417,7 @@ class StaffRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                     //sign out current user
                     FirebaseAuth.getInstance().signOut()
                     sweetAlertDialog.apply {
+                        changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
                         titleText = "Registration Successful"
                         contentText = "registered"
                         cancelText = "home"
@@ -436,6 +438,7 @@ class StaffRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                             it.dismiss()
                         }
                         setCancelClickListener {
+                            it.dismiss()
                             funReturnMainHome()
                         }
                     }
@@ -461,7 +464,7 @@ class StaffRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         storeCheckEnrol.collection(COLLECTION_KEYS).document(DOCUMENT_KEYS).get()
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    val keyReturned = it.result.get(STAFF_ENROLL_KEY)
+                    val keyReturned = it.result.get(ADMINISTRATION_KEY)
                     if (textEnrolKey == keyReturned) {
                         //proceed with registration process key is true
                         funProceedRegistrationDeputy(sweetAlertDialog)
@@ -618,6 +621,7 @@ class StaffRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                     //sign out current user
                     FirebaseAuth.getInstance().signOut()
                     sweetAlertDialog.apply {
+                        changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
                         titleText = "Registration Successful"
                         contentText = "registered"
                         cancelText = "home"
@@ -665,7 +669,7 @@ class StaffRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         storeCheckEnrol.collection(COLLECTION_KEYS).document(DOCUMENT_KEYS).get()
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    val keyReturned = it.result.get(STAFF_ENROLL_KEY)
+                    val keyReturned = it.result.get(ADMINISTRATION_KEY)
                     if (textEnrolKey == keyReturned) {
                         //proceed with registration process key is true
                         funProceedRegistrationBursa(sweetAlertDialog)
@@ -825,6 +829,7 @@ class StaffRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                     //sign out current user
                     FirebaseAuth.getInstance().signOut()
                     sweetAlertDialog.apply {
+                        changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
                         titleText = "Registration Successful"
                         contentText = "registered"
                         cancelText = "home"
@@ -857,32 +862,39 @@ class StaffRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         //code begins
         val view: View = layoutInflater.inflate(R.layout.class_teacher_for, null, false)
         val editTextFor: EditText = view.findViewById(R.id.edtClassTeacherFor)
-
-        val materialAlertDialogBuilder = MaterialAlertDialogBuilder(this@StaffRegistration)
-        materialAlertDialogBuilder.setCancelable(false)
-        materialAlertDialogBuilder.background =
+        val materialAlertDialogBuilderOther = MaterialAlertDialogBuilder(this@StaffRegistration)
+        materialAlertDialogBuilderOther.setCancelable(false)
+        materialAlertDialogBuilderOther.setView(view)
+        materialAlertDialogBuilderOther.background =
             ResourcesCompat.getDrawable(resources, R.drawable.background_main_profile, theme)
-        materialAlertDialogBuilder.setIcon(R.drawable.school_msi_1)
-        materialAlertDialogBuilder.setTitle("class teacher role")
-        materialAlertDialogBuilder.setPositiveButton("proceed") { dg, _ ->
+        materialAlertDialogBuilderOther.setIcon(R.drawable.school_msi_1)
+        materialAlertDialogBuilderOther.setTitle("class teacher role")
+        materialAlertDialogBuilderOther.setPositiveButton("proceed") { dg, _ ->
             //code begins
             val selection = editTextFor.text.toString().trim()
-            funBeginRegistrationTeacher(selection)
+            if (selection.contains("other", true)) {
+                funCreateOtherAlert()
+            } else {
+                //teacher selection does not contain other (cbc)
+                funBeginRegistrationTeacher(selection)
+
+            }
+
             dg.dismiss()
             //code ends
         }
-        materialAlertDialogBuilder.setNegativeButton("dismiss") { dg, _ ->
+        materialAlertDialogBuilderOther.setNegativeButton("dismiss") { dg, _ ->
             dg.dismiss()
         }
-        materialAlertDialogBuilder.setNeutralButton("home") { dg, _ ->
+        materialAlertDialogBuilderOther.setNeutralButton("home") { dg, _ ->
             //code begins
             dg.dismiss()
             startActivity(Intent(this@StaffRegistration, MainProfile::class.java))
             finish()
             //code begins
         }
-        materialAlertDialogBuilder.create()
-        materialAlertDialogBuilder.show()
+        materialAlertDialogBuilderOther.create()
+        materialAlertDialogBuilderOther.show()
 
 
         val spinner: Spinner = view.findViewById(R.id.spinnerClassTeacherFor)
@@ -908,6 +920,44 @@ class StaffRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         //code ends
     }
 
+    private fun funCreateOtherAlert() {
+
+
+        //contains other cbc
+        val viewOther: View =
+            layoutInflater.inflate(R.layout.provide_other_teacher, null, false)
+
+        val editTextOther: EditText = viewOther.findViewById(R.id.edtTeacherFormLevelOther)
+
+        val materialAlertDialogBuilder = MaterialAlertDialogBuilder(this@StaffRegistration)
+        materialAlertDialogBuilder.background = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.background_main_profile,
+            theme
+        )
+        materialAlertDialogBuilder.setTitle("Provide Other (CBC)")
+        materialAlertDialogBuilder.setCancelable(false)
+        materialAlertDialogBuilder.setView(viewOther)
+        materialAlertDialogBuilder.setIcon(R.drawable.school_msi_1)
+        materialAlertDialogBuilder.setPositiveButton("proceed") { d, _ ->
+
+            val otherTextSelection = editTextOther.text.toString().trim()
+            if (otherTextSelection.isEmpty()) {
+                Toast.makeText(
+                    this@StaffRegistration,
+                    "empty fields not allowed!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                funBeginRegistrationTeacher(otherTextSelection)
+                d.dismiss()
+            }
+        }
+        materialAlertDialogBuilder.setNegativeButton("dismiss") { dialog, _ -> dialog.dismiss() }
+        materialAlertDialogBuilder.create()
+        materialAlertDialogBuilder.show()
+    }
+
     private fun funBeginRegistrationTeacher(selection: String) {
 
 
@@ -915,6 +965,10 @@ class StaffRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         //sign out eny user that is existing
         if (firebaseAuth.currentUser != null) {
             FirebaseAuth.getInstance().signOut()
+            funCheckEnrollKey(selection)
+        }
+        else
+        {
             funCheckEnrollKey(selection)
         }
         //code ends
@@ -929,12 +983,13 @@ class StaffRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListene
         sweetAlertDialog.setCancelable(false)
         sweetAlertDialog.create()
         sweetAlertDialog.show()
+
         //store check the staff enrol key
         val storeCheckEnrol = FirebaseFirestore.getInstance()
         storeCheckEnrol.collection(COLLECTION_KEYS).document(DOCUMENT_KEYS).get()
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    val keyReturned = it.result.get(STAFF_ENROLL_KEY)
+                    val keyReturned = it.result.get(TEACHER_KEY)
                     if (textEnrolKey == keyReturned) {
                         //proceed with registration process key is true
                         funProceedRegistrationTeacher(selection, sweetAlertDialog)
@@ -1107,9 +1162,11 @@ class StaffRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListene
                     //sign out current user
                     FirebaseAuth.getInstance().signOut()
                     sweetAlertDialog.apply {
+                        changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
                         titleText = "Registration Successful"
                         contentText = "registered"
-                        cancelText = "home"
+                        cancelText=""
+                        confirmText = "home"
                         setConfirmClickListener {
                             it.dismiss()
                             funReturnMainHome()

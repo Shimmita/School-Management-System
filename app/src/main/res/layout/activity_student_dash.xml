@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_main_profile"
     android:orientation="vertical"
     tools:context=".mains.dash.StudentDash">
 
@@ -127,6 +128,18 @@
                 android:background="@drawable/background_main_profile"
                 android:text="@string/contact_class_teacher"
                 android:textAllCaps="false" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnLogoutStudentParent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/background_main_profile"
+                android:backgroundTint="#797761"
+                android:text="@string/logout"
+                android:textAllCaps="true"
+                android:textColor="#FFEB3B" />
 
         </LinearLayout>
 

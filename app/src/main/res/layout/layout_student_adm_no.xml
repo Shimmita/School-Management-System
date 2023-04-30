@@ -6,31 +6,20 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/background_main_profile"
         app:counterEnabled="true"
+        android:background="@drawable/background_main_profile"
         app:counterMaxLength="50">
 
-        <Spinner
-            android:id="@+id/spinnerClassTeacherFor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <EditText
-            android:id="@+id/edtClassTeacherFor"
+            android:id="@+id/edtStudentAdmissionNumberFees"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_main_profile"
-            android:drawableStart="@drawable/baseline_man_role"
-            android:drawablePadding="10dp"
-            android:focusable="false"
-            android:hint="@string/class_teacher_of"
+            android:hint="@string/student_admission_number"
+            android:inputType="numberDecimal"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
 </LinearLayout>

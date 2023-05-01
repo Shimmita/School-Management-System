@@ -18,25 +18,52 @@
         tools:replace="android:icon"
         tools:targetApi="31">
         <activity
+            android:name=".mains.dash.FinanceDash"
+            android:exported="false"
+            android:parentActivityName=".mains.main_activities.MainProfile" />
+        <activity
+            android:name=".mains.dash.AcademicsDash"
+            android:exported="false"
+            android:parentActivityName=".mains.main_activities.MainProfile" />
+        <activity
+            android:name=".mains.students.MyStudents"
+            android:exported="false"
+            android:parentActivityName=".mains.dash.TeacherDash" />
+        <activity
             android:name=".mains.dash.NewsDash"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".mains.main_activities.MainProfile" />
         <activity
             android:name=".mains.dash.DeputyDash"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".mains.main_activities.MainProfile" />
         <activity
             android:name=".mains.dash.TeacherDash"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".mains.main_activities.MainProfile">
+
+            <!--
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+            -->
+        </activity>
         <activity
             android:name=".mains.dash.PrincipalDash"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".mains.main_activities.MainProfile" />
         <activity
             android:name=".mains.dash.BursaDash"
-            android:exported="false">
+            android:exported="true"
+            android:parentActivityName=".mains.main_activities.MainProfile">
+
            <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
+
         </activity>
         <activity
             android:name=".mains.dash.StudentDash"
@@ -92,12 +119,11 @@
         <activity
             android:name=".mains.main_activities.SplashActivity"
             android:exported="true">
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
         </activity>
     </application>
 

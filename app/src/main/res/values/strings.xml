@@ -83,7 +83,7 @@
 
     <string-array name="staff_role">
         <item>Principal</item>
-        <item>Deputy</item>
+        <!-- <item>Deputy</item>-->
         <item>Teacher</item>
         <item>Bursa</item>
 
@@ -115,7 +115,7 @@
     <string name="post_information">post information</string>
     <string name="view_school_results">view school results</string>
     <string name="select_results_option">select results option</string>
-    <string name="enter_amount_paid">enter amount paid</string>
+    <string name="enter_amount_paid">enter amount</string>
     <string name="logout">logout</string>
     <string name="enrollment_key">enrollment key</string>
     <string name="password">password</string>
@@ -125,4 +125,22 @@
     <string name="title_retrieve_news">TITLE</string>
     <string name="message_placeholder">message placeholder</string>
     <string name="school_principal">school principal</string>
+    <string name="teacher_teacher">Teacher Teacher</string>
+    <string name="update_student_marks">update student marks</string>
+    <string name="my_students">my students</string>
+    <string name="student_aggregate_points">student aggregate points</string>
+    <string name="michael_oliech">MICHAEL OLIECH</string>
+    <string name="grade_a">Grade: A-</string>
+    <string name="points_76">Points: 76</string>
+    <string name="parent_alex_kemboi">Parent: ALEX KEMBOI</string>
+    <string name="contact_parent">contact parent</string>
+    <string name="adm_5678">Adm: 5678</string>
+    <string name="_0712537337">0712537337</string>
+    <string name="michael_gmail_com">michael@gmail.com</string>
+    <string name="my_students_details">MY STUDENTS</string>
+    <string name="post_school_fees">PUBLISH SCHOOL FEES</string>
+    <string name="total_fees_35000">TOTAL FEES : Ksh. 35000</string>
+    <string name="minimum_required_ksh_17500">MINIMUM REQUIRED : Ksh. 17500</string>
+    <string name="form_1_fee_structure">Form 1 FEE STRUCTURE</string>
+    <string name="finance_dash">SCHOOL FINANCE DASHBOARD</string>
 </resources>

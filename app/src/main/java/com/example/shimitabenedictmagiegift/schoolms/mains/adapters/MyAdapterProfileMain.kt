@@ -15,6 +15,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shimitabenedictmagiegift.schoolms.R
+import com.example.shimitabenedictmagiegift.schoolms.mains.dash.FinanceDash
 import com.example.shimitabenedictmagiegift.schoolms.mains.dash.NewsDash
 import com.example.shimitabenedictmagiegift.schoolms.mains.data_class_main.DataClassMainsProfile
 import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.HandleLogin
@@ -77,10 +78,8 @@ class MyAdapterProfileMain(
                     "dear user the results have not yet been posted you will get notified when they become updated"
                 funAlertNotUpdated(title, message)
             } else if (textPresent.toString().contains("finance", true)) {
-                funAlertNotUpdated(
-                    "Finance",
-                    "finance department is working on the data stay connected it will be updated soon"
-                )
+
+                context.startActivity(Intent(context,FinanceDash::class.java))
 
             } else if (textPresent.toString().contains("sport", true)) {
                 AlertDialog.Builder(context).setMessage("games department will post results soon")

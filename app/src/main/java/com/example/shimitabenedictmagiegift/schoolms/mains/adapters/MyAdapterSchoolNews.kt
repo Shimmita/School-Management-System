@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shimitabenedictmagiegift.schoolms.R
 import com.example.shimitabenedictmagiegift.schoolms.mains.data_class_main.DataClassSchoolNews
 
-class MyAdapterSchoolNews(val context: Context, var arrayList: ArrayList<DataClassSchoolNews>) :
+class MyAdapterSchoolNews(val context: Context, var arrayList: ArrayList<DataClassSchoolNews>,var schoolCode:String) :
     RecyclerView.Adapter<MyAdapterSchoolNews.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view =
@@ -20,9 +20,13 @@ class MyAdapterSchoolNews(val context: Context, var arrayList: ArrayList<DataCla
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         var arrayItemPosition = arrayList[position]
         holder.apply {
-            textViewNewsTitle.text = arrayItemPosition.title
-            textViewNewsSender.text = arrayItemPosition.sender
-            textViewNewsMessage.text = arrayItemPosition.message
+            var codeServer=arrayItemPosition.code
+            if (codeServer!=schoolCode)
+            {
+                textViewNewsTitle.text = arrayItemPosition.title
+                textViewNewsSender.text = arrayItemPosition.sender
+                textViewNewsMessage.text = arrayItemPosition.message
+            }
         }
     }
 

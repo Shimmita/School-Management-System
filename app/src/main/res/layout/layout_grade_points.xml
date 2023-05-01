@@ -9,16 +9,16 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:counterEnabled="true"
         android:background="@drawable/background_main_profile"
+        app:counterEnabled="true"
         app:counterMaxLength="50">
 
         <EditText
-            android:id="@+id/edtStudentAdmissionNumber"
+            android:id="@+id/edtStudentPoints"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_main_profile"
-            android:hint="@string/student_admission_number"
+            android:hint="@string/student_aggregate_points"
             android:inputType="numberDecimal"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>

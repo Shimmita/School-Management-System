@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:id="@+id/myStudentsCard"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:contentPadding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgStudentTeacherDash"
+                android:layout_width="100dp"
+                android:layout_height="165dp"
+                android:scaleType="centerCrop"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/img_student" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:contentPadding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvStudentNameTeacherDash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="georgia"
+                        android:text="@string/michael_oliech"
+                        android:textColor="#358685"
+                        android:textStyle="bold|italic" />
+
+                    <TextView
+                        android:id="@+id/tvStudentEmailTeacherDash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:autoLink="email"
+                        android:textColorLink="@color/purple_200"
+                        android:text="@string/michael_gmail_com"
+                        android:textStyle="italic" />
+
+
+                    <TextView
+                        android:id="@+id/tvStudentPhoneTeacherDash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:autoLink="phone"
+                        android:textIsSelectable="true"
+                        android:textColorLink="@color/purple_200"
+                        android:text="@string/_0712537337"
+                        android:textStyle="italic" />
+
+
+                    <TextView
+                        android:id="@+id/tvStudentAdmissionTeacherDash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/adm_5678"
+                        android:textStyle="italic" />
+
+
+                    <TextView
+                        android:id="@+id/tvStudentGradeTeacherDash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/grade_a"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/tvStudentPointsTeacherDash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/points_76"
+                        android:textStyle="italic" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnContactParent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/transWhite"
+                        android:text="@string/contact_parent"
+                        android:textColor="@color/teal_700"
+                        android:textStyle="italic" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

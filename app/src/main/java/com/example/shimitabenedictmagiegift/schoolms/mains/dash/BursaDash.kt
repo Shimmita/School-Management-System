@@ -27,13 +27,14 @@ class BursaDash : AppCompatActivity() {
         private const val TAG = "BursaDash"
         const val COLLECTION_BURSA = "Bursa"
         const val COLLECTION_NEWS = "NEWS"
+        const val COLLECTION_CLASSES_FEES = "CLASS_FEES"
     }
 
     //declaration of Globals
     private lateinit var appCompatButtonUpdateFess: AppCompatButton
     lateinit var appCompatButtonPostNews: AppCompatButton
     lateinit var appCompatButtonLogout: AppCompatButton
-    lateinit var appCompatButtonViewResults: AppCompatButton
+    lateinit var appCompatButtonPublishFees: AppCompatButton
     lateinit var sweetAlertDialogProgress: SweetAlertDialog
     lateinit var circleImageView: CircleImageView
     lateinit var textViewNameBursa: TextView
@@ -50,13 +51,6 @@ class BursaDash : AppCompatActivity() {
     @SuppressLint("InflateParams")
     private fun funInitOther() {
         //code begins
-        appCompatButtonViewResults.setOnClickListener {
-            it.apply {
-                startAnimation(AnimationUtils.loadAnimation(this@BursaDash, R.anim.push_down_out))
-                postDelayed({ funViewResults() }, 500)
-            }
-
-        }
 
         appCompatButtonUpdateFess.setOnClickListener {
             it.apply {
@@ -76,10 +70,19 @@ class BursaDash : AppCompatActivity() {
                 postDelayed({ funPostSchoolNews() }, 500)
             }
         }
-        //fun load
+        appCompatButtonPublishFees.setOnClickListener {
+            it.apply {
+                startAnimation(AnimationUtils.loadAnimation(this@BursaDash, R.anim.push_down_out))
+                postDelayed({ funFeesClassUpdate() }, 500)
+            }
+        }
+
+
+        //fun load bursa data
         funLoadBursaDataFromStore()
         //code ends
     }
+
 
     private fun funLoadBursaDataFromStore() {
         //code begins
@@ -171,9 +174,15 @@ class BursaDash : AppCompatActivity() {
         val keyTitle = "title"
         val keyMessage = "message"
         val keySender = "sender"
+        val keySchoolCode = "code"
 
         val hashMap =
-            hashMapOf(keyTitle to title, keyMessage to message, keySender to "School Bursa")
+            hashMapOf(
+                keyTitle to title,
+                keyMessage to message,
+                keySender to "School Bursa",
+                keySchoolCode to schoolCode
+            )
         postNews.collection(COLLECTION_NEWS).document(path).set(hashMap)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
@@ -245,9 +254,8 @@ class BursaDash : AppCompatActivity() {
 
     private fun funUpdateFees() {
         //code begins
-
         val view: View = layoutInflater.inflate(R.layout.layout_student_adm_no, null, false)
-        val editText: EditText = view.findViewById(R.id.edtStudentAdmissionNumberFees)
+        val editText: EditText = view.findViewById(R.id.edtStudentAdmissionNumber)
 
         val materialAlertAdmissionNumber = MaterialAlertDialogBuilder(this@BursaDash)
         materialAlertAdmissionNumber.setCancelable(false)
@@ -281,7 +289,6 @@ class BursaDash : AppCompatActivity() {
 
     private fun funSearchStudentUpdateFees(text: String) {
         //code begins
-
         val sweetAlertDialogFeesProgress =
             SweetAlertDialog(this@BursaDash, SweetAlertDialog.PROGRESS_TYPE)
         sweetAlertDialogFeesProgress.titleText = "Fetching"
@@ -473,7 +480,7 @@ class BursaDash : AppCompatActivity() {
         //code ends
     }
 
-    private fun funViewResults() {
+    private fun funFeesClassUpdate() {
         //code begins
 
         val viewResultsOption = layoutInflater.inflate(R.layout.layout_view_results, null, false)
@@ -482,31 +489,28 @@ class BursaDash : AppCompatActivity() {
         val materialAlertDialogBuilderResultsOption = MaterialAlertDialogBuilder(this@BursaDash)
         materialAlertDialogBuilderResultsOption.setCancelable(false)
         materialAlertDialogBuilderResultsOption.setView(viewResultsOption)
-        materialAlertDialogBuilderResultsOption.setTitle("select option")
+        materialAlertDialogBuilderResultsOption.setTitle("select class")
         materialAlertDialogBuilderResultsOption.setIcon(R.drawable.school_msi_1)
         materialAlertDialogBuilderResultsOption.background =
             ResourcesCompat.getDrawable(resources, R.drawable.background_main_profile, theme)
-        materialAlertDialogBuilderResultsOption.setPositiveButton("check results") { dg, _ ->
+        materialAlertDialogBuilderResultsOption.setPositiveButton("proceed") { dg, _ ->
 
             val text = editText.text.toString().trim()
             if (text.contains("form 1", true)) {
-                //process viewing of form 1 results
-                Toast.makeText(this@BursaDash, "form 1", Toast.LENGTH_SHORT).show()
-
+                //publish school fees form 1
+                funPublishFeesForm1(text, materialAlertDialogBuilderResultsOption)
             } else if (text.contains("form 2", true)) {
-                //process form 2 results
-                Toast.makeText(this@BursaDash, "form 2", Toast.LENGTH_SHORT).show()
-
+                //publish school fees form 2
+                funPublishFeesForm2(text, materialAlertDialogBuilderResultsOption)
             } else if (text.contains("form 3", true)) {
-                //process form 3 results
-                Toast.makeText(this@BursaDash, "form 3", Toast.LENGTH_SHORT).show()
-
+                //publish school fees form 3
+                funPublishFeesForm3(text, materialAlertDialogBuilderResultsOption)
             } else if (text.contains("form 4", true)) {
-                //process form 4 results
-                Toast.makeText(this@BursaDash, "form 4", Toast.LENGTH_SHORT).show()
-
+                //publish school fees form 4
+                funPublishFeesForm3(text, materialAlertDialogBuilderResultsOption)
             } else {
-                Toast.makeText(this@BursaDash, "currently not available", Toast.LENGTH_SHORT).show()
+                //not available for other (CBC)
+                funPublishFeesFormOther(text, materialAlertDialogBuilderResultsOption)
             }
 
             dg.dismiss()
@@ -539,6 +543,149 @@ class BursaDash : AppCompatActivity() {
 
     }
 
+    private fun funPublishFeesFormOther(
+        text: String,
+        materialAlertDialogBuilderResultsOption: MaterialAlertDialogBuilder
+    ) {
+
+
+        //code begins
+
+        //path form 1(schoolCode/form)
+        val view: View = layoutInflater.inflate(R.layout.layout_enter_fees, null, false)
+        val editText: EditText = view.findViewById(R.id.edtStudentFeesPaid)
+
+        materialAlertDialogBuilderResultsOption.setView(view)
+        materialAlertDialogBuilderResultsOption.setTitle("Publish Fees")
+        materialAlertDialogBuilderResultsOption.setPositiveButton("Publish") { dg, _ ->
+            val stringFees = editText.text.toString()
+            funProceedUploadFees(stringFees, text)
+        }
+        materialAlertDialogBuilderResultsOption.setNegativeButton("dismiss") { dg, _ ->
+            dg.dismiss()
+        }
+        materialAlertDialogBuilderResultsOption.create()
+        materialAlertDialogBuilderResultsOption.show()
+    }
+
+    private fun funPublishFeesForm3(
+        text: String,
+        materialAlertDialogBuilderResultsOption: MaterialAlertDialogBuilder
+    ) {
+
+
+        //code begins
+
+        //path form 1(schoolCode/form)
+        val view: View = layoutInflater.inflate(R.layout.layout_enter_fees, null, false)
+        val editText: EditText = view.findViewById(R.id.edtStudentFeesPaid)
+
+        materialAlertDialogBuilderResultsOption.setView(view)
+        materialAlertDialogBuilderResultsOption.setTitle("Publish Fees")
+        materialAlertDialogBuilderResultsOption.setPositiveButton("Publish") { dg, _ ->
+            val stringFees = editText.text.toString()
+            funProceedUploadFees(stringFees, text)
+        }
+        materialAlertDialogBuilderResultsOption.setNegativeButton("dismiss") { dg, _ ->
+            dg.dismiss()
+        }
+        materialAlertDialogBuilderResultsOption.create()
+        materialAlertDialogBuilderResultsOption.show()
+    }
+
+    private fun funPublishFeesForm2(
+        text: String,
+        materialAlertDialogBuilderResultsOption: MaterialAlertDialogBuilder
+    ) {
+
+        //code begins
+
+        //path form 1(schoolCode/form)
+        val view: View = layoutInflater.inflate(R.layout.layout_enter_fees, null, false)
+        val editText: EditText = view.findViewById(R.id.edtStudentFeesPaid)
+
+        materialAlertDialogBuilderResultsOption.setView(view)
+        materialAlertDialogBuilderResultsOption.setTitle("Publish Fees")
+        materialAlertDialogBuilderResultsOption.setPositiveButton("Publish") { dg, _ ->
+            val stringFees = editText.text.toString()
+            funProceedUploadFees(stringFees, text)
+        }
+        materialAlertDialogBuilderResultsOption.setNegativeButton("dismiss") { dg, _ ->
+            dg.dismiss()
+        }
+        materialAlertDialogBuilderResultsOption.create()
+        materialAlertDialogBuilderResultsOption.show()
+    }
+
+    @SuppressLint("InflateParams")
+    private fun funPublishFeesForm1(
+        text: String,
+        materialAlertDialogBuilderResultsOption: MaterialAlertDialogBuilder
+    ) {
+        //code begins
+
+        //path form 1(schoolCode/form)
+        val view: View = layoutInflater.inflate(R.layout.layout_enter_fees, null, false)
+        val editText: EditText = view.findViewById(R.id.edtStudentFeesPaid)
+
+        materialAlertDialogBuilderResultsOption.setView(view)
+        materialAlertDialogBuilderResultsOption.setTitle("Publish Fees")
+        materialAlertDialogBuilderResultsOption.setPositiveButton("Publish") { dg, _ ->
+            val stringFees = editText.text.toString()
+            funProceedUploadFees(stringFees, text)
+        }
+        materialAlertDialogBuilderResultsOption.setNegativeButton("dismiss") { dg, _ ->
+            dg.dismiss()
+        }
+        materialAlertDialogBuilderResultsOption.create()
+        materialAlertDialogBuilderResultsOption.show()
+        //code ends
+    }
+
+    private fun funProceedUploadFees(stringFees: String, text: String) {
+        //
+
+        val sweetAlertDialogFeesProgress =
+            SweetAlertDialog(this@BursaDash, SweetAlertDialog.PROGRESS_TYPE)
+        sweetAlertDialogFeesProgress.titleText = "Publishing"
+        sweetAlertDialogFeesProgress.setCancelable(false)
+        sweetAlertDialogFeesProgress.create()
+        sweetAlertDialogFeesProgress.show()
+
+        text.lowercase()
+        val path = "$schoolCode$text"
+        val keyFees = "fee"
+        val keyForm = "form"
+        val keySchoolCode = "code"
+        val mapData = hashMapOf(keyFees to stringFees, keyForm to text, keySchoolCode to schoolCode)
+        val storePublishFees = FirebaseFirestore.getInstance()
+        storePublishFees.collection(COLLECTION_CLASSES_FEES).document(path).set(mapData)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    sweetAlertDialogFeesProgress.apply {
+                        changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
+                        titleText = "Successful"
+                        contentText = "school fees posted"
+                        confirmText = "ok"
+                        setConfirmClickListener {
+                            it.dismissWithAnimation()
+                        }
+                    }
+                } else if (!it.isSuccessful) {
+                    sweetAlertDialogFeesProgress.apply {
+                        changeAlertType(SweetAlertDialog.ERROR_TYPE)
+                        titleText = "Update Failed"
+                        contentText = it.exception?.message
+                        confirmText = "okay"
+                        setConfirmClickListener {
+                            it.dismiss()
+                        }
+                    }
+                }
+            }
+        //
+    }
+
     private fun funInitGlobals() {
         //code begins
         this.title = getString(R.string.bursa_dash)
@@ -548,8 +695,8 @@ class BursaDash : AppCompatActivity() {
 
         appCompatButtonPostNews = findViewById(R.id.btnPostInformation)
         appCompatButtonUpdateFess = findViewById(R.id.btnUpdateFees)
-        appCompatButtonViewResults = findViewById(R.id.btnViewSchoolResults)
         appCompatButtonLogout = findViewById(R.id.btnLogoutBursa)
+        appCompatButtonPublishFees = findViewById(R.id.btnPublishFees)
         circleImageView = findViewById(R.id.imgBursa)
         textViewNameBursa = findViewById(R.id.tvBursaName)
 

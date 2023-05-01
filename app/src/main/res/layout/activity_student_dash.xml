@@ -28,6 +28,7 @@
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_gravity="center"
+                android:scaleType="centerCrop"
                 android:layout_marginBottom="10dp"
                 android:src="@drawable/img_student"
                 app:civ_border_color="@color/white"

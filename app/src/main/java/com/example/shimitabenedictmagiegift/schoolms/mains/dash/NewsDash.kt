@@ -1,6 +1,7 @@
 package com.example.shimitabenedictmagiegift.schoolms.mains.dash
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 class NewsDash : AppCompatActivity() {
     lateinit var recyclerViewNews: RecyclerView
     lateinit var sweetAlertDialogProgress: SweetAlertDialog
+
+    lateinit var schoolCode: String
+    lateinit var schoolName: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_dash)
@@ -57,7 +62,7 @@ class NewsDash : AppCompatActivity() {
                     }
 
                     //loading the data to the recycler view
-                    val adapterNews = MyAdapterSchoolNews(this@NewsDash, tempArrayList)
+                    val adapterNews = MyAdapterSchoolNews(this@NewsDash, tempArrayList, schoolCode)
                     recyclerViewNews.apply {
                         layoutManager = LinearLayoutManager(this@NewsDash)
                         adapter = adapterNews
@@ -88,6 +93,14 @@ class NewsDash : AppCompatActivity() {
         sweetAlertDialogProgress = SweetAlertDialog(this@NewsDash, SweetAlertDialog.PROGRESS_TYPE)
         sweetAlertDialogProgress.setCancelable(false)
         sweetAlertDialogProgress.titleText = "searching"
+
+
+        //obtain data from shared preference
+        val sharedPreferences =
+            getSharedPreferences(MainProfile.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
+        schoolCode = sharedPreferences.getString("code", "").toString().trim()
+        schoolName = sharedPreferences.getString("name", "").toString().trim()
+
         //code ends
     }
 }

@@ -598,6 +598,8 @@ class StudentRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         val keyParentUId = "parent"
         val keyCounty = "county"
         val keyForm = "form"
+        val keyGrade="grade"
+        val keyPoints="points"
         val keyDOB = "dob"
         val keyImage = "image"
         val mapData = hashMapOf(
@@ -610,7 +612,9 @@ class StudentRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
             keyCounty to studentCounty,
             keyForm to studentForm,
             keyDOB to studentDOB,
-            keyImage to downloadUriStudent
+            keyImage to downloadUriStudent,
+            keyGrade to "",
+            keyPoints to ""
         )
 
         val storeStudentDetails = FirebaseFirestore.getInstance()

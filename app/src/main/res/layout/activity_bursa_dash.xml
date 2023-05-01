@@ -13,6 +13,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
         android:src="@drawable/img_student"
         app:civ_border_color="@color/main_green_color"
         app:civ_border_width="1dp" />
@@ -59,12 +60,12 @@
                 android:textAllCaps="true" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnViewSchoolResults"
+                android:id="@+id/btnPublishFees"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/background_main_profile"
-                android:text="@string/view_school_results"
+                android:text="@string/post_school_fees"
                 android:textAllCaps="true" />
 
             <androidx.appcompat.widget.AppCompatButton

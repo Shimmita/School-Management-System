@@ -1,4 +1,4 @@
-package com.example.shimitabenedictmagiegift.schoolms.mains.dash
+package com.example.shimitabenedictmagiegift.schoolms.mains.students
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,26 +14,25 @@ import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.MainP
 import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.StudentRegistration
 import com.google.firebase.firestore.FirebaseFirestore
 
-class AcademicsDash : AppCompatActivity() {
+class ClassResults : AppCompatActivity() {
     lateinit var schoolCode: String
     lateinit var schoolName: String
-    lateinit var whichForm: String
-    lateinit var recyclerView: RecyclerView
+    lateinit var studentForm: String
+    private lateinit var recyclerView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_academics_dash)
-        funInitGlobals()
+        setContentView(R.layout.activity_class_results)
+        funInit()
         funFetchData()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun funFetchData() {
 
-
         //code begins
         val sweetAlertDialogProgress =
-            SweetAlertDialog(this@AcademicsDash, SweetAlertDialog.PROGRESS_TYPE)
-        sweetAlertDialogProgress.titleText = "Collecting Students"
+            SweetAlertDialog(this@ClassResults, SweetAlertDialog.PROGRESS_TYPE)
+        sweetAlertDialogProgress.titleText = "Processing"
         sweetAlertDialogProgress.setCancelable(false)
         sweetAlertDialogProgress.create()
         sweetAlertDialogProgress.show()
@@ -62,6 +61,7 @@ class AcademicsDash : AppCompatActivity() {
                             dismissWithAnimation()
                             //students presents
                             val tempArray = arrayListOf<DataClassMyStudents>()
+                            tempArray.clear()
                             for (doc in it.result.documents) {
                                 val classFilter: DataClassMyStudents? =
                                     doc.toObject(DataClassMyStudents::class.java)
@@ -73,16 +73,16 @@ class AcademicsDash : AppCompatActivity() {
 
                             val adapterMyStudents =
                                 MyAdapterMyStudents(
-                                    this@AcademicsDash,
+                                    this@ClassResults,
                                     tempArray,
-                                    whichForm,
+                                    studentForm,
                                     schoolCode,
                                     false
                                 )
                             recyclerView.apply {
                                 adapter = adapterMyStudents
                                 adapterMyStudents.notifyDataSetChanged()
-                                layoutManager = LinearLayoutManager(this@AcademicsDash)
+                                layoutManager = LinearLayoutManager(this@ClassResults)
                             }
                         }
 
@@ -103,8 +103,8 @@ class AcademicsDash : AppCompatActivity() {
             }
     }
 
-    private fun funInitGlobals() {
-        recyclerView = findViewById(R.id.rvStudentsPerClass)
+    private fun funInit() {
+        recyclerView = findViewById(R.id.rvClassResults)
 
         schoolCode =
             getSharedPreferences(
@@ -119,15 +119,13 @@ class AcademicsDash : AppCompatActivity() {
             ).getString("name", "")
                 .toString()
 
-        whichForm =
+        studentForm =
             getSharedPreferences(
                 MainProfile.SHARED_PREFERENCE_NAME,
                 Context.MODE_PRIVATE
-            ).getString("which", "")
+            ).getString("form", "")
                 .toString()
 
-
-        this.title="ACADEMICS ${whichForm.uppercase()}"
-
+        this.title = "RESULTS ${studentForm.uppercase()}"
     }
 }

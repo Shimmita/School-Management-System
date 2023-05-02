@@ -65,7 +65,6 @@ class MyStudents : AppCompatActivity() {
 
 
         //load all school students then filter by their form
-
         val storeStudents = FirebaseFirestore.getInstance()
         storeStudents.collection(COLLECTION_STUDENTS).get()
             .addOnCompleteListener {
@@ -87,7 +86,8 @@ class MyStudents : AppCompatActivity() {
                         sweetAlertDialogProgress.apply {
                             dismissWithAnimation()
                             //students presents
-                            var tempArray = arrayListOf<DataClassMyStudents>()
+                            val tempArray = arrayListOf<DataClassMyStudents>()
+                            tempArray.clear()
                             for (doc in it.result.documents) {
                                 val classFilter: DataClassMyStudents? =
                                     doc.toObject(DataClassMyStudents::class.java)
@@ -97,12 +97,18 @@ class MyStudents : AppCompatActivity() {
 
                             }
 
-                            val adapterMyStudents=
-                                MyAdapterMyStudents(this@MyStudents,tempArray,teacherForm,schoolCode)
+                            val adapterMyStudents =
+                                MyAdapterMyStudents(
+                                    this@MyStudents,
+                                    tempArray,
+                                    teacherForm,
+                                    schoolCode,
+                                    true
+                                )
                             recyclerView.apply {
-                                adapter=adapterMyStudents
+                                adapter = adapterMyStudents
                                 adapterMyStudents.notifyDataSetChanged()
-                                layoutManager= LinearLayoutManager(this@MyStudents)
+                                layoutManager = LinearLayoutManager(this@MyStudents)
                             }
                         }
 

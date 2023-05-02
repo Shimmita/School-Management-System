@@ -15,10 +15,12 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shimitabenedictmagiegift.schoolms.R
+import com.example.shimitabenedictmagiegift.schoolms.mains.dash.AcademicsDash
 import com.example.shimitabenedictmagiegift.schoolms.mains.dash.FinanceDash
 import com.example.shimitabenedictmagiegift.schoolms.mains.dash.NewsDash
 import com.example.shimitabenedictmagiegift.schoolms.mains.data_class_main.DataClassMainsProfile
 import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.HandleLogin
+import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.MainProfile.Companion.SHARED_PREFERENCE_NAME
 import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.StaffRegistration
 import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.StudentRegistration
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -72,14 +74,12 @@ class MyAdapterProfileMain(
                     funAlertLoginAs(loginUI, spinnerLoginRole)
                 }, 230)
             } else if (textPresent.toString().contains("academics", true)) {
-                //alert user current have not been posted
-                val title = "academics"
-                val message =
-                    "dear user the results have not yet been posted you will get notified when they become updated"
-                funAlertNotUpdated(title, message)
+                //alert user to choose an option
+                funChooseFormAlert()
+
             } else if (textPresent.toString().contains("finance", true)) {
 
-                context.startActivity(Intent(context,FinanceDash::class.java))
+                context.startActivity(Intent(context, FinanceDash::class.java))
 
             } else if (textPresent.toString().contains("sport", true)) {
                 AlertDialog.Builder(context).setMessage("games department will post results soon")
@@ -108,6 +108,78 @@ class MyAdapterProfileMain(
             //code ends
         }
 
+        private fun funChooseFormAlert() {
+            val examWhichView: View =
+                LayoutInflater.from(context).inflate(R.layout.view_exam_result_which, null, false)
+            var editTextWhichExamResults: EditText =
+                examWhichView.findViewById(R.id.edtWhichExamResults)
+
+            //show alert dg
+            val materialAlertDialogBuilder = MaterialAlertDialogBuilder(context)
+            materialAlertDialogBuilder.setCancelable(false)
+            materialAlertDialogBuilder.background =
+                ResourcesCompat.getDrawable(
+                    context.resources,
+                    R.drawable.background_main_profile,
+                    context.theme
+                )
+            materialAlertDialogBuilder.setView(examWhichView)
+            materialAlertDialogBuilder.setPositiveButton("view") { dg, _ ->
+
+                editTextWhichExamResults = examWhichView.findViewById(R.id.edtWhichExamResults)
+
+
+                //get the text from the edt text and evaluate
+                val textWhich = editTextWhichExamResults.text.toString().trim()
+                if (textWhich.isNotEmpty()) {
+                    //call fun evaluate show
+                    funProceedViewingResultSelection(textWhich)
+                    dg.dismiss()
+                    //
+                } else if (textWhich.isEmpty()) {
+                    Toast.makeText(context, "select again", Toast.LENGTH_SHORT).show()
+                    dg.dismiss()
+                }
+                //
+            }
+            materialAlertDialogBuilder.setNegativeButton("dismiss", null)
+            materialAlertDialogBuilder.create()
+            materialAlertDialogBuilder.show()
+
+
+            //spinner operations
+            val spinnerWhichExam: Spinner = examWhichView.findViewById(R.id.spinnerWhichResults)
+            //init of the spinner
+            val adapterWhichExam = ArrayAdapter.createFromResource(
+                context,
+                R.array.which_exam_results,
+                android.R.layout.simple_list_item_1
+            )
+            spinnerWhichExam.adapter = adapterWhichExam
+            //setting listener
+            spinnerWhichExam.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    //setting the edit text with the value selected
+                    val selection: String = p0?.getItemAtPosition(p2).toString()
+                    editTextWhichExamResults.setText(selection)
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    //nothing
+                }
+
+            }
+            //
+
+        }
+
+        private fun funProceedViewingResultSelection(textWhich: String) {
+            val intent = Intent(context, AcademicsDash::class.java)
+            context.startActivity(intent)
+            context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE).edit()
+                .putString("which", textWhich).apply()
+        }
+
         private fun funAlertExit() {
             //code begins
 
@@ -118,12 +190,10 @@ class MyAdapterProfileMain(
             materialAlertExit.setPositiveButton("sure") { dg, _ ->
                 dg.dismiss()
                 //sign out the current user if present
-                if (FirebaseAuth.getInstance().currentUser!=null)
-                {
+                if (FirebaseAuth.getInstance().currentUser != null) {
                     FirebaseAuth.getInstance().signOut()
                     exitProcess(0)
-                }
-                else
+                } else
                     exitProcess(0)
 
             }

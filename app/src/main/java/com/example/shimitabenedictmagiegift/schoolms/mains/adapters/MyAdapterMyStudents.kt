@@ -28,7 +28,8 @@ class MyAdapterMyStudents(
     var context: Context,
     var arrayList: ArrayList<DataClassMyStudents>,
     var formExpected: String,
-    var schoolCode: String
+    var schoolCode: String,
+    var contactParent: Boolean
 ) :
     RecyclerView.Adapter<MyAdapterMyStudents.MyViewHolder>() {
     companion object {
@@ -53,10 +54,10 @@ class MyAdapterMyStudents(
         holder.apply {
             //display only form expected students by filtering the expected form with student form
             val studentForm = arrayItem.form
+            val name=arrayItem.name
             if (studentForm.toString().lowercase() == formExpected.lowercase()) {
                 //use the adm no to loop through the results of the students collection and obtain their grades and marks
                 val admissionNumber = arrayItem.adm.toString()
-
 
                 Glide.with(context).load(arrayItem.image).into(circleImageViewStudent)
                 textViewStudentAdmissionName.text = "Adm:  ${arrayItem.adm}"
@@ -70,6 +71,12 @@ class MyAdapterMyStudents(
 /*
                 holder.funUpdateGradePoints(admissionNumber)
 */
+
+                if (contactParent) {
+                    appCompatButtonContactParent.visibility = View.VISIBLE
+                } else {
+                    appCompatButtonContactParent.visibility = View.GONE
+                }
 
 
                 appCompatButtonContactParent.setOnClickListener {

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
@@ -17,6 +16,7 @@ import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.MainP
 import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.StudentRegistration.Companion.COLLECTION_FEES
 import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.StudentRegistration.Companion.COLLECTION_STUDENTS
 import com.example.shimitabenedictmagiegift.schoolms.mains.main_activities.StudentRegistration.Companion.COLLECTION_STUDENT_RESULTS
+import com.example.shimitabenedictmagiegift.schoolms.mains.students.ClassResults
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -41,6 +41,7 @@ class StudentDash : AppCompatActivity() {
 
     lateinit var schoolCode: String
     lateinit var schoolName: String
+    lateinit var studentForm: String
     lateinit var studentDocumentIDCombination: String
 
 
@@ -65,6 +66,11 @@ class StudentDash : AppCompatActivity() {
         schoolName =
             getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE).getString("name", "")
                 .toString()
+
+        studentForm =
+            getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE).getString("form", "")
+                .toString()
+
         studentDocumentIDCombination =
             getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE).getString("id", "")
                 .toString()
@@ -73,6 +79,7 @@ class StudentDash : AppCompatActivity() {
             //reload data fetch since admission number missing
             funFetchDetailsStudentStore()
         }
+
         //code ends
     }
 
@@ -93,7 +100,7 @@ class StudentDash : AppCompatActivity() {
                 var isPresent = false
                 var gottenStudentDocument = ""
                 for (doc in it.result.documents) {
-                    var docID = doc.id
+                    val docID = doc.id
                     if (docID.contains(uniqueUID)) {
                         isPresent = true
                         gottenStudentDocument = docID
@@ -143,13 +150,16 @@ class StudentDash : AppCompatActivity() {
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     val studentAdmissionNumber = it.result["adm"].toString()
+                    val form = it.result["form"].toString()
                     val sharedPreferences =
                         getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
-                    sharedPreferences.edit().putString("id", gottenStudentDocument).apply()
+                    sharedPreferences.edit().putString("id", gottenStudentDocument)
+                        .putString("form", form).apply()
 
                     val studentName = it.result["name"].toString()
                     val studentForm = it.result["form"].toString()
                     val image = it.result["image"].toString()
+
 
                     funCompleteFetchingNow(
                         studentAdmissionNumber,
@@ -176,6 +186,7 @@ class StudentDash : AppCompatActivity() {
         //code ends
     }
 
+    @SuppressLint("SetTextI18n")
     private fun funCompleteFetchingNow(
         studentAdmissionNumber: String,
         studentName: String,
@@ -197,7 +208,7 @@ class StudentDash : AppCompatActivity() {
                         dismiss()
 
                         Glide.with(this@StudentDash).load(image).into(circleImageViewStudent)
-                        textViewStudentAdmission.text = studentAdmissionNumber
+                        textViewStudentAdmission.text = "Adm: $studentAdmissionNumber"
                         textViewStudentForm.text = studentForm
                         textViewStudentGrade.text = grade
                         textViewStudentName.text = studentName
@@ -231,65 +242,10 @@ class StudentDash : AppCompatActivity() {
     private fun funInitOtherGlobals() {
         //events listeners
         appcompatButtonViewResults.setOnClickListener {
-
-            val examWhichView: View =
-                layoutInflater.inflate(R.layout.view_exam_result_which, null, false)
-            var editTextWhichExamResults: EditText =
-                examWhichView.findViewById(R.id.edtWhichExamResults)
-
-            //show alert dg
-            val materialAlertDialogBuilder = MaterialAlertDialogBuilder(this@StudentDash)
-            materialAlertDialogBuilder.setCancelable(false)
-            materialAlertDialogBuilder.background =
-                ResourcesCompat.getDrawable(resources, R.drawable.background_main_profile, theme)
-            materialAlertDialogBuilder.setView(examWhichView)
-            materialAlertDialogBuilder.setPositiveButton("view") { dg, _ ->
-
-                editTextWhichExamResults = examWhichView.findViewById(R.id.edtWhichExamResults)
-
-
-                //get the text from the edt text and evaluate
-                val textWhich = editTextWhichExamResults.text.toString().trim()
-                if (textWhich.isNotEmpty()) {
-                    //call fun evaluate show
-                    funProceedViewingResultSelection(textWhich)
-                    dg.dismiss()
-                    //
-                } else if (textWhich.isEmpty()) {
-                    Toast.makeText(this@StudentDash, "select again", Toast.LENGTH_SHORT).show()
-                    dg.dismiss()
-                }
-                //
-            }
-            materialAlertDialogBuilder.setNegativeButton("dismiss", null)
-            materialAlertDialogBuilder.create()
-            materialAlertDialogBuilder.show()
-
-
-            //spinner operations
-            val spinnerWhichExam: Spinner = examWhichView.findViewById(R.id.spinnerWhichResults)
-            //init of the spinner
-            val adapterWhichExam = ArrayAdapter.createFromResource(
-                this@StudentDash,
-                R.array.which_exam_results,
-                android.R.layout.simple_list_item_1
-            )
-            spinnerWhichExam.adapter = adapterWhichExam
-            //setting listener
-            spinnerWhichExam.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    //setting the edit text with the value selected
-                    val selection: String = p0?.getItemAtPosition(p2).toString()
-                    editTextWhichExamResults.setText(selection)
-                }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    //nothing
-                }
-
-            }
-            //
-
+            val sharedPreferences =
+                getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
+            sharedPreferences.edit().putString("form", studentForm).apply()
+            startActivity(Intent(this@StudentDash, ClassResults::class.java))
         }
 
         appCompatButtonViewFees.setOnClickListener {

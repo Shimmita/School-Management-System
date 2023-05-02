@@ -18,6 +18,10 @@
         tools:replace="android:icon"
         tools:targetApi="31">
         <activity
+            android:name=".mains.students.ClassResults"
+            android:exported="false"
+            android:parentActivityName=".mains.dash.StudentDash" />
+        <activity
             android:name=".mains.dash.FinanceDash"
             android:exported="false"
             android:parentActivityName=".mains.main_activities.MainProfile" />
@@ -59,10 +63,12 @@
             android:exported="true"
             android:parentActivityName=".mains.main_activities.MainProfile">
 
-           <!-- <intent-filter>
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
 
         </activity>
         <activity
@@ -119,11 +125,11 @@
         <activity
             android:name=".mains.main_activities.SplashActivity"
             android:exported="true">
-              <intent-filter>
-                  <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                  <category android:name="android.intent.category.LAUNCHER" />
-              </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

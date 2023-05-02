@@ -143,4 +143,5 @@
     <string name="minimum_required_ksh_17500">MINIMUM REQUIRED : Ksh. 17500</string>
     <string name="form_1_fee_structure">Form 1 FEE STRUCTURE</string>
     <string name="finance_dash">SCHOOL FINANCE DASHBOARD</string>
+    <string name="view_class_exam_results">view class exam results</string>
 </resources>
